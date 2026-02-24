@@ -41,7 +41,7 @@ export default function TextReveal() {
         left: "0",
         width: "100%",
         height: "100%",
-        backgroundColor: "#c6e53c", // Lando Lime Green
+        backgroundColor: "#C4E7FF", // Lando Lime Green
         zIndex: "10", 
         transformOrigin: "right", // Wipes away to the right
         transform: "scaleX(1)", 
@@ -75,19 +75,19 @@ export default function TextReveal() {
     // Changed back to flex-col items-center justify-center
     <section 
       ref={containerRef} 
-      className="relative w-full min-h-screen bg-[#1c2018] flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
+      className="relative w-full min-h-screen bg-[#050B28] flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
     >
       <div className="w-full flex justify-center">
         {/* Added text-center, tightened the leading (line-height) to match Lando, and mapped exact <br/> tags */}
         <h2 
           ref={textRef}
-          className="text-[#e2e1d8] text-center text-5xl md:text-7xl lg:text-[7.5rem] leading-[0.9] font-black uppercase tracking-tighter"
+          className="text-white text-center text-5xl md:text-7xl lg:text-[7.5rem] leading-[0.9] font-black uppercase tracking-tighter"
         >
           Redefining limits,<br />
-          fighting for <span className="text-[#c6e53c]">wins</span>,<br />
+          fighting for <span className="text-[#25A4FF]">wins</span>,<br />
           bringing it all in<br />
           all ways. Defining a<br />
-          <span className="text-[#c6e53c]">legacy</span> in Web Development<br />
+          <span className="text-[#25A4FF]">legacy</span> in Web Development<br />
           on and off the<br />
           screen.
         </h2>

@@ -1,15 +1,15 @@
 // app/page.tsx
 import Hero from "@/components/Hero";
 import TextReveal from "@/components/TextReveal";
+import Footer from "@/components/Footer"; // 1. Import the Footer component
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-black">
       <Hero />
       <TextReveal />
-      
-      {/* Extra space at the bottom just so we can keep scrolling to test the effect */}
-      <div className="h-screen bg-black"></div>
+      {/* 2. Place the Footer at the end of your content */}
+      <Footer />
     </main>
   );
 }

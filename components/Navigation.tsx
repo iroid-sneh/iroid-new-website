@@ -132,9 +132,9 @@ export default function Navigation() {
         <nav className="sidenav__menu relative flex flex-col justify-between w-full md:w-[35em] h-full ml-auto pt-32 pb-8 overflow-hidden">
           {/* Background Panels */}
           <div className="absolute inset-0 z-0">
-            <div className="sidenav__menu-bg-panel absolute inset-0 bg-[#e04645] rounded-l-[1.25em]" />
+            <div className="sidenav__menu-bg-panel absolute inset-0 bg-[#2D62E8] rounded-l-[1.25em]" />
             <div className="sidenav__menu-bg-panel absolute inset-0 bg-[#131313] rounded-l-[1.25em]" />
-            <div className="sidenav__menu-bg-panel absolute inset-0 bg-[#ebdcc5] rounded-l-[1.25em]" />
+            <div className="sidenav__menu-bg-panel absolute inset-0 bg-[#C4E7FF] rounded-l-[1.25em]" />
           </div>
 
           {/* Links */}
@@ -150,7 +150,7 @@ export default function Navigation() {
                 <li key={i} className="relative overflow-hidden h-20 md:h-24">
                   <Link
                     href={`/${item.slug}`}
-                    className="sidenav__menu-link flex items-start gap-3 w-full h-full py-3 text-[#131313]"
+                    className="sidenav__menu-link flex items-start gap-3 w-full h-full py-3 text-[#102458]"
                     onClick={toggleMenu}
                   >
                     <p className="text-5xl md:text-[5.625em] font-bold leading-[0.8] tracking-tight uppercase m-0">

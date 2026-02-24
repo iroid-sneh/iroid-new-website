@@ -44,6 +44,6 @@ body {
 .transition-block {
   width: 100%;
   height: 100%;
-  background-color: #ff4c24; /* CHANGE THIS TO YOUR COMPANY COLOR */
+  background-color: #2D62E8; /* CHANGE THIS TO YOUR COMPANY COLOR */
   opacity: 0; /* Hidden by default */
 }
