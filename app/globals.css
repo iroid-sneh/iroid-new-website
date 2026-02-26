@@ -102,6 +102,52 @@ body {
     src: url("/fonts/ufficio-sans-font-family/Ufficio-700-BF657a75deb8051.ttf")
         format("truetype");
 }
+@font-face {
+    font-family: "RetailVariable";
+    src: url("/fonts/Retail-Variable/Retail_Variable.otf") format("opentype");
+}
+@font-face {
+    font-family: "RetailFamily";
+    src: url("/fonts/Retail-Family/RetailDemo-Black.otf") format("opentype");
+}
+/* globals.css */
+
+/* 1. CORRECTED RETAIL FONT DEFINITIONS */
+@font-face {
+    font-family: "RetailBlack";
+    /* Matches your folder name: retail-font-family */
+    src: url("/fonts/retail-font-family/RetailDemo-Black.otf")
+        format("opentype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "RetailBlackItalic";
+    src: url("/fonts/retail-font-family/RetailDemo-BlackItalic.otf")
+        format("opentype");
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* 2. TAILWIND V4 THEME MAPPING */
+@theme {
+    --font-retail: "RetailBlack";
+    --font-retail-italic: "RetailBlackItalic";
+
+    /* Keep your existing ones */
+    --font-molika: "Molika";
+    --font-neue-ultra: "NeuePowerUltra";
+}
+
+/* 3. BASE STYLES */
+body {
+    background: #000014;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
 
 /* 2. TAILWIND V4 CONFIG FOR TESTING */
 @theme {
@@ -117,6 +163,18 @@ body {
     --font-nexa: "NexaHeavy";
     --font-troismille: "TroisMille";
     --font-ufficio: "Ufficio";
+    --font-retail-variable: "RetailVariable";
+    --font-retail-family: "RetailFamily";
+    --font-druk: "Druk";
+}
+
+@font-face {
+    font-family: "Druk";
+    src: url("/fonts/Druk/DrukCond-Super-Trial.otf") format("opentype");
+}
+
+.premium-text {
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 body {

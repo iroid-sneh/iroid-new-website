@@ -34,6 +34,11 @@ export default function FontTest() {
         { name: "Molika Sans", class: "font-molika", type: "Body/Clean" },
         { name: "Ufficio Sans", class: "font-ufficio", type: "Technical/SaaS" },
         { name: "Cochin Roman", class: "font-cochin", type: "Editorial/Serif" },
+        {
+            name: "Retail Variable",
+            class: "font-retail-variable",
+            type: "Technical/SaaS",
+        },
     ];
 
     return (
