@@ -1,49 +1,130 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, Helvetica, sans-serif;
 }
 /* globals.css */
 .transition-container {
-  z-index: 9999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex; /* Hidden by default via inline styles in JS, but flex/grid when active */
-  flex-wrap: wrap;
-  pointer-events: none; /* Let clicks pass through when hidden */
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex; /* Hidden by default via inline styles in JS, but flex/grid when active */
+    flex-wrap: wrap;
+    pointer-events: none; /* Let clicks pass through when hidden */
 }
 
 .transition-container.active {
-  pointer-events: all; /* Block clicks when transition is active */
+    pointer-events: all; /* Block clicks when transition is active */
 }
 
 .transition-block {
-  width: 100%;
-  height: 100%;
-  background-color: #2D62E8; /* CHANGE THIS TO YOUR COMPANY COLOR */
-  opacity: 0; /* Hidden by default */
+    width: 100%;
+    height: 100%;
+    background-color: #2d62e8; /* CHANGE THIS TO YOUR COMPANY COLOR */
+    opacity: 0; /* Hidden by default */
+}
+@import "tailwindcss";
+
+/* 1. DEFINE ALL YOUR FONTS */
+
+@font-face {
+    font-family: "Anton";
+    src: url("/fonts/anton/Anton-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Cochin";
+    src: url("/fonts/Cochin/Cochin%20Roman.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Ibarra";
+    src: url("/fonts/IbbaraRealNova/IbarraRealNova-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "IbarraItalic";
+    src: url("/fonts/IbbaraRealNova/IbarraRealNova-Italic[wght].ttf")
+        format("truetype");
+}
+@font-face {
+    font-family: "MixtaDidone";
+    src: url("/fonts/mixta-didone/mixta-didone-regular.otf") format("opentype");
+}
+@font-face {
+    font-family: "Molika";
+    src: url("/fonts/MolikaSans/Molika%20Sans.otf") format("opentype");
+}
+@font-face {
+    font-family: "MramorBold";
+    src: url("/fonts/MramorPro/MramorPro-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NeuePowerUltra";
+    src: url("/fonts/NeuePowerTrial/NeuePowerTrial-Ultra.ttf")
+        format("truetype");
+}
+@font-face {
+    font-family: "NeuePowerBold";
+    src: url("/fonts/NeuePowerTrial/NeuePowerTrial-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "NexaHeavy";
+    src: url("/fonts/NexaDemo/Nexa-Trial-Heavy.otf") format("opentype");
+}
+@font-face {
+    font-family: "TroisMille";
+    src: url("/fonts/TroisMilleFonts/TroisMilleFonts.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Ufficio";
+    src: url("/fonts/ufficio-sans-font-family/Ufficio-700-BF657a75deb8051.ttf")
+        format("truetype");
+}
+
+/* 2. TAILWIND V4 CONFIG FOR TESTING */
+@theme {
+    --font-anton: "Anton";
+    --font-cochin: "Cochin";
+    --font-ibarra: "Ibarra";
+    --font-ibarra-italic: "IbarraItalic";
+    --font-mixta: "MixtaDidone";
+    --font-molika: "Molika";
+    --font-mramor: "MramorBold";
+    --font-neue-ultra: "NeuePowerUltra";
+    --font-neue-bold: "NeuePowerBold";
+    --font-nexa: "NexaHeavy";
+    --font-troismille: "TroisMille";
+    --font-ufficio: "Ufficio";
+}
+
+body {
+    background: #000014;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
+
+video {
+    filter: brightness(0.7) contrast(1.1) saturate(0.8);
 }

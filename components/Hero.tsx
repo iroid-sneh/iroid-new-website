@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <section className="relative w-full h-screen bg-[#000014] overflow-hidden flex flex-col justify-between p-6 md:p-12">
+        // <section className="relative w-full h-screen bg-[#000014] overflow-hidden flex flex-col justify-between p-6 md:p-12">
+        <section className="relative w-full h-screen bg-[#00024c] overflow-hidden flex flex-col justify-between p-6 md:p-12">
             {/* 1. TOP HUD (Heads-Up Display) */}
             <div className="relative z-20 flex justify-between items-start w-full opacity-50">
                 <div className="text-[10px] tracking-[0.2em] uppercase font-mono text-white">
