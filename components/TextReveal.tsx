@@ -1,86 +1,81 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function TextReveal() {
     const containerRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLHeadingElement>(null);
 
-    useGSAP(
-        () => {
-            if (!textRef.current) return;
+    useEffect(() => {
+        if (!containerRef.current || !textRef.current) return;
 
-            // 1. Split Text into lines
-            const split = new SplitType(textRef.current, { types: "lines" });
+        const split = new SplitType(textRef.current, { types: "lines" });
 
-            // 2. CREATE THE EXACT-WIDTH & CENTERED BLOCKS
-            split.lines?.forEach((line) => {
-                if (line.querySelector(".line-mask")) return;
+        split.lines?.forEach((line) => {
+            if (line.querySelector(".line-mask")) return;
 
-                line.style.width = "fit-content";
+            line.style.width = "fit-content";
+            line.style.margin = "0 auto";
+            line.style.position = "relative";
+            line.style.padding = "0.05em 0";
 
-                // THE FIX FOR CENTERING: This perfectly centers the exact-width line block!
-                line.style.margin = "0 auto";
+            const mask = document.createElement("div");
+            mask.className = "line-mask";
 
-                line.style.position = "relative";
-                line.style.padding = "0.05em 0";
+            Object.assign(mask.style, {
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: "100%",
+                height: "100%",
+                backgroundColor: "#C4E7FF",
+                zIndex: "10",
+                transformOrigin: "right",
+                transform: "scaleX(1)",
+            });
 
-                // Create the solid massive block
-                const mask = document.createElement("div");
-                mask.className = "line-mask";
+            line.appendChild(mask);
+        });
 
-                // Style the block
-                Object.assign(mask.style, {
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "#C4E7FF", // Lando Lime Green
-                    zIndex: "10",
-                    transformOrigin: "right", // Wipes away to the right
-                    transform: "scaleX(1)",
+        const masks = gsap.utils.toArray<HTMLElement>(".line-mask");
+
+        // Use IntersectionObserver instead of ScrollTrigger so this
+        // animation is fully isolated from other GSAP ScrollTriggers.
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        gsap.to(masks, {
+                            scaleX: 0,
+                            stagger: 0.15,
+                            ease: "power2.out",
+                            duration: 1.2,
+                        });
+                        observer.disconnect();
+                    }
                 });
+            },
+            {
+                threshold: 0.4, // fire when ~40% of the section is visible
+            }
+        );
 
-                // Inject the block into the line
-                line.appendChild(mask);
-            });
+        observer.observe(containerRef.current);
 
-            // 3. ANIMATE THE BLOCKS WIPING AWAY
-            gsap.to(".line-mask", {
-                scaleX: 0,
-                stagger: 0.15,
-                ease: "power2.out",
-                duration: 1.2,
-                scrollTrigger: {
-                    trigger: containerRef.current,
-                    start: "top 70%",
-                    toggleActions: "play none none none",
-                    once: true, // ensures it runs only once
-                },
-            });
-
-            return () => {
-                split.revert();
-            };
-        },
-        { scope: containerRef }
-    );
+        return () => {
+            observer.disconnect();
+            split.revert();
+        };
+    }, []);
 
     return (
-        // Changed back to flex-col items-center justify-center
         <section
             ref={containerRef}
             className="relative w-full min-h-screen bg-[#00024c] flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
         >
             <div className="w-full flex justify-center">
-                {/* Added text-center, tightened the leading (line-height) to match Lando, and mapped exact <br/> tags */}
                 <h2
                     ref={textRef}
                     className="text-white text-center text-5xl md:text-7xl lg:text-[7.5rem] leading-[0.9] font-black uppercase tracking-tighter"

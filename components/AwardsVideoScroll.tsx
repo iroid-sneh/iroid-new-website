@@ -270,7 +270,7 @@ export default function AwardsVideoScroll() {
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-screen bg-[#f1f1f1] overflow-hidden"
+            className="relative w-full h-screen bg-white overflow-hidden"
         >
             {/* BACKGROUND TEXT LAYER */}
             {/* BACKGROUND TEXT LAYER */}
@@ -279,20 +279,20 @@ export default function AwardsVideoScroll() {
                 className="absolute inset-0 flex flex-col items-center justify-center z-0 w-full overflow-hidden"
             >
                 {/* Small Top Label */}
-                <span className="text-[14px] md:text-[18px] font-bold text-black tracking-[0.3em] mb-4 uppercase">
+                <span className="text-[14px] md:text-[18px] font-bold text-black tracking-[0.6em] mb-4 uppercase">
                     5 Reasons
                 </span>
 
                 {/* Main Large Heading Row */}
                 <div className="flex items-center justify-center w-full px-10">
-                    <h2 className="text-[12vw] font-black leading-none text-black whitespace-nowrap uppercase tracking-tighter">
+                    <h2 className="text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
                         To Be
                     </h2>
 
                     {/* THE GAP: This width should match the initial width of your card (cardRef) */}
                     <div className="w-[25vw] md:w-[20vw] flex-shrink-0"></div>
 
-                    <h2 className="text-[12vw] font-black leading-none text-black whitespace-nowrap uppercase tracking-tighter">
+                    <h2 className="text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
                         iRoid
                     </h2>
                 </div>
