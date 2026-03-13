@@ -42,7 +42,11 @@ export default function MapSection() {
     // Line 2 moves slightly slower/delayed
     const line2X = useTransform(smoothProgress, [0.05, 0.5], ["120%", "-150%"]);
     // Line 3 moves even more delayed
-    const line3X = useTransform(smoothProgress, [0.1, 0.55], ["120%", "-150%"]);
+    const line3X = useTransform(
+        smoothProgress,
+        [0.04, 0.45],
+        ["120%", "-150%"]
+    );
 
     return (
         <div
@@ -86,37 +90,6 @@ export default function MapSection() {
                             progress={smoothProgress}
                         />
                     ))}
-
-                    {/* Degrees UI */}
-                    <div className="absolute bottom-10 w-full flex justify-between px-10 text-[10px] text-black font-mono tracking-widest">
-                        {[
-                            "180°",
-                            "120°",
-                            "60°",
-                            "0°",
-                            "60°",
-                            "120°",
-                            "180°",
-                        ].map((d, i) => (
-                            <span key={i}>{d}</span>
-                        ))}
-                    </div>
-
-                    {/* View All Button */}
-                    <motion.div
-                        style={{
-                            opacity: useTransform(
-                                smoothProgress,
-                                [0.8, 0.9],
-                                [0, 1]
-                            ),
-                        }}
-                        className="absolute bottom-20 left-1/2 -translate-x-1/2"
-                    >
-                        <button className="px-8 py-3 border border-black/10 rounded-full text-[10px] uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all">
-                            View All Projects
-                        </button>
-                    </motion.div>
                 </div>
             </div>
         </div>
@@ -136,14 +109,14 @@ function MapPin({ city, progress }: { city: any; progress: any }) {
     return (
         <motion.div
             style={{ top: city.top, left: city.left, opacity, y }}
-            className="absolute flex items-start gap-2"
+            className="absolute flex items-start gap-2.5"
         >
-            {/* The "Pin" - a small vertical line as seen in high-end design maps */}
+            {/* Lollipop-style pin: circle on top, stick below */}
             <div className="flex flex-col items-center">
-                <div className="w-[1px] h-3 bg-black/40" />
-                <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                <div className="w-2.5 h-2.5 rounded-full bg-black shrink-0" />
+                <div className="w-[1.5px] h-4 bg-black/40" />
             </div>
-            <span className="text-[11px] font-semibold text-black uppercase tracking-tighter mt-2 whitespace-nowrap">
+            <span className="text-[13px] md:text-[14px] font-semibold text-black uppercase tracking-tighter mt-2.5 whitespace-nowrap">
                 {city.name}
             </span>
         </motion.div>
