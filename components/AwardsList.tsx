@@ -56,6 +56,7 @@ export default function AwardsRevealList() {
     const rowsRef = useRef<HTMLDivElement[]>([]);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const imageRef = useRef<HTMLDivElement>(null);
+    const mousePos = useRef({ x: 0, y: 0 });
 
     useGSAP(
         () => {
@@ -69,6 +70,7 @@ export default function AwardsRevealList() {
             });
 
             const handleMouseMove = (e: MouseEvent) => {
+                mousePos.current = { x: e.clientX, y: e.clientY };
                 xTo(e.clientX);
                 yTo(e.clientY);
             };
@@ -79,6 +81,23 @@ export default function AwardsRevealList() {
         },
         { scope: containerRef }
     );
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const { x, y } = mousePos.current;
+            const el = document.elementFromPoint(x, y);
+            // Check if cursor is still inside one of the award rows
+            const row = el?.closest("[data-award-row]");
+            if (!row) {
+                setHoveredIndex(null);
+            } else {
+                const idx = Number(row.getAttribute("data-award-row"));
+                setHoveredIndex(idx);
+            }
+        };
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useGSAP(
         () => {
@@ -154,6 +173,7 @@ export default function AwardsRevealList() {
                     <div
                         key={award.id}
                         ref={(el) => (rowsRef.current[index] = el!)}
+                        data-award-row={index}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
                         className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none overflow-hidden"
