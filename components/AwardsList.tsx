@@ -12,42 +12,42 @@ const AWARDS = [
         title: "Top Leading App Dev",
         category: "Clutch India",
         org: "2022",
-        img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500",
+        img: "../clutch2022.png",
     },
     {
         id: 2,
         title: "Top Mobile App Dev",
         category: "Tech Behemoths",
         org: "2023",
-        img: "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?q=80&w=500",
+        img: "../TechBehemoths2023.png",
     },
     {
         id: 3,
         title: "Top Web Development",
         category: "Tech Behemoths",
         org: "2023",
-        img: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=500",
+        img: "../TechBehemothsWeb2023.png",
     },
     {
         id: 4,
         title: "Top React JS Dev",
         category: "Tech Behemoths",
         org: "2023",
-        img: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=500",
+        img: "../TechBehemothsReactJS2023.png",
     },
     {
         id: 5,
         title: "Top Mobile App Dev",
         category: "TrueFirms",
         org: "2023",
-        img: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=500",
+        img: "../TrueFirms2024.png",
     },
     {
         id: 6,
         title: "Excellence in SaaS",
         category: "SOTY Nominee",
         org: "2025",
-        img: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=500",
+        img: "../TechBehemoths2023.png",
     },
 ];
 
@@ -124,7 +124,7 @@ export default function AwardsRevealList() {
             {/* THE FLOATING HOVER IMAGE (Z-50) */}
             <div
                 ref={imageRef}
-                className="fixed top-0 left-0 w-[400px] h-[280px] pointer-events-none z-50 overflow-hidden rounded-lg opacity-0"
+                className="fixed top-0 left-0 w-[250px] h-[350px] pointer-events-none z-50 overflow-hidden opacity-0"
                 style={{
                     opacity: hoveredIndex !== null ? 1 : 0,
                     transform: "translate(-50%, -50%)",
