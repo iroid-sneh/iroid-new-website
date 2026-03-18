@@ -57,7 +57,6 @@ export default function AwardsRevealList() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const imageRef = useRef<HTMLDivElement>(null);
 
-    // 1. SMOOTH MOUSE FOLLOW LOGIC (QuickTo for 60fps performance)
     useGSAP(
         () => {
             const xTo = gsap.quickTo(imageRef.current, "x", {
@@ -81,36 +80,39 @@ export default function AwardsRevealList() {
         { scope: containerRef }
     );
 
-    // 2. THE SLIDE-IN + REVEAL ANIMATION
     useGSAP(
         () => {
+            // 1. THE ENTRANCE ANIMATION (Your existing code)
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 60%",
-                    once: true, // Only happens once
+                    start: "top 80%",
+                    once: true,
                 },
             });
 
             rowsRef.current.forEach((row, index) => {
                 const mask = row.querySelector(".row-mask");
-                const content = row.querySelector(".row-content");
-
-                // Individual Timeline for each row
                 tl.fromTo(
                     row,
                     { x: "100%", opacity: 0 },
                     { x: "0%", opacity: 1, duration: 0.8, ease: "power4.out" },
-                    index * 0.15 // The "One by one in delay" effect
+                    index * 0.1
                 ).to(
                     mask,
-                    {
-                        scaleX: 0,
-                        duration: 0.8,
-                        ease: "power2.inOut",
-                    },
+                    { scaleX: 0, duration: 0.8, ease: "power2.inOut" },
                     "-=0.6"
-                ); // Wipes the reveal mask while the row is still moving
+                );
+            });
+
+            // 2. THE FIX: RESET HOVER STATE ON SCROLL EXIT
+            // This ensures the image disappears when you scroll past the section
+            ScrollTrigger.create({
+                trigger: containerRef.current,
+                start: "top bottom", // When top of section enters bottom of viewport
+                end: "bottom top", // When bottom of section leaves top of viewport
+                onLeave: () => setHoveredIndex(null), // Scrolling down past the section
+                onLeaveBack: () => setHoveredIndex(null), // Scrolling up past the section
             });
         },
         { scope: containerRef }
@@ -119,16 +121,16 @@ export default function AwardsRevealList() {
     return (
         <section
             ref={containerRef}
-            className="relative min-h-screen bg-black text-white py-40 overflow-hidden"
+            className="relative h-screen w-full bg-black text-white overflow-hidden flex flex-col"
         >
-            {/* THE FLOATING HOVER IMAGE (Z-50) */}
+            {/* FLOATING IMAGE */}
             <div
                 ref={imageRef}
-                className="fixed top-0 left-0 w-[250px] h-[350px] pointer-events-none z-50 overflow-hidden opacity-0"
+                className="fixed top-0 left-0 w-[280px] h-[380px] pointer-events-none z-50 overflow-hidden rounded-xl opacity-0 shadow-2xl"
                 style={{
                     opacity: hoveredIndex !== null ? 1 : 0,
                     transform: "translate(-50%, -50%)",
-                    transition: "opacity 0.1s ease",
+                    transition: "opacity 0.3s ease", // Increased duration for smoother hide
                 }}
             >
                 {AWARDS.map((item, i) => (
@@ -141,54 +143,47 @@ export default function AwardsRevealList() {
                 ))}
             </div>
 
-            <div className="max-w-[1400px] mx-auto px-10">
-                {/* SECTION HEADER */}
-                <p className="font-molika text-[10px] uppercase tracking-[0.5em] text-blue-500 mb-10">
+            <div className="max-w-screen w-full mx-auto px-10 pt-6">
+                <p className="font-molika text-[10px] uppercase tracking-[0.5em] text-blue-500">
                     Recognition / Honors
                 </p>
+            </div>
 
-                {/* THE LIST */}
-                <div className="flex flex-col">
-                    {AWARDS.map((award, index) => (
-                        <div
-                            key={award.id}
-                            ref={(el) => (rowsRef.current[index] = el!)}
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
-                            className="group relative flex items-center justify-between py-12 border-b border-white/10 cursor-none"
-                        >
-                            {/* THE REVEAL MASK (The wipe effect) */}
-                            <div className="row-mask absolute inset-0 bg-[#C4E7FF] z-20 origin-right" />
+            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-10 mt-4">
+                {AWARDS.map((award, index) => (
+                    <div
+                        key={award.id}
+                        ref={(el) => (rowsRef.current[index] = el!)}
+                        onMouseEnter={() => setHoveredIndex(index)}
+                        onMouseLeave={() => setHoveredIndex(null)}
+                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none overflow-hidden"
+                    >
+                        <div className="row-mask absolute inset-0 bg-[#C4E7FF] z-20 origin-right" />
 
-                            {/* THE CONTENT */}
-                            <div className="row-content relative z-10 w-full flex items-center justify-between group-hover:px-8 transition-all duration-500">
-                                {/* Left: Title */}
-                                <div className="flex flex-col">
-                                    <span className="font-molika text-[10px] opacity-40 uppercase tracking-widest mb-2">
-                                        Award {index + 1}
-                                    </span>
-                                    <h3 className="text-3xl md:text-6xl font-black uppercase leading-none">
-                                        {award.title}
-                                    </h3>
-                                </div>
+                        <div className="row-content relative z-10 w-full flex items-center justify-between group-hover:px-4 transition-all duration-500">
+                            <div className="flex flex-col">
+                                <span className="font-molika text-[9px] opacity-30 uppercase tracking-widest">
+                                    Award 0{index + 1}
+                                </span>
+                                <h3 className="text-xl md:text-5xl font-black uppercase leading-none">
+                                    {award.title}
+                                </h3>
+                            </div>
 
-                                {/* Center: Category */}
-                                <div className="hidden md:block">
-                                    <p className="font-retail-italic italic text-2xl text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                        {award.category}
-                                    </p>
-                                </div>
+                            <div className="hidden md:block">
+                                <p className="font-retail-italic italic text-xl text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    {award.category}
+                                </p>
+                            </div>
 
-                                {/* Right: Year/Org */}
-                                <div className="text-right">
-                                    <span className="font-molika text-lg md:text-xl opacity-20 group-hover:opacity-100 transition-opacity">
-                                        {award.org}
-                                    </span>
-                                </div>
+                            <div className="text-right">
+                                <span className="font-molika text-sm md:text-lg opacity-20 group-hover:opacity-100 transition-opacity">
+                                    {award.org}
+                                </span>
                             </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </section>
     );
