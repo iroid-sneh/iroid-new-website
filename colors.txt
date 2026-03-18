@@ -1,0 +1,28 @@
+- CSV
+
+0A154F,E2D6D1,0A1550,615C64
+
+- With #
+
+#0A154F, #E2D6D1, #0A1550, #615C64
+
+- Array
+
+["0A154F","E2D6D1","0A1550","615C64"]
+
+- Object
+
+{"Deep Navy":"0A154F","Dust Grey":"E2D6D1","Deep Navy 2":"0A1550","Charcoal":"615C64"}
+
+- Extended Array
+
+[{"name":"Deep Navy","hex":"0A154F","rgb":[10,21,79],"cmyk":[87,73,0,69],"hsb":[230,87,31],"hsl":[230,78,17],"lab":[10,20,-37]},{"name":"Dust Grey","hex":"E2D6D1","rgb":[226,214,209],"cmyk":[0,5,8,11],"hsb":[18,8,89],"hsl":[18,23,85],"lab":[86,3,4]},{"name":"Deep Navy","hex":"0A1550","rgb":[10,21,80],"cmyk":[88,74,0,69],"hsb":[231,88,31],"hsl":[231,78,18],"lab":[10,20,-37]},{"name":"Charcoal","hex":"615C64","rgb":[97,92,100],"cmyk":[3,8,0,61],"hsb":[278,8,39],"hsl":[278,4,38],"lab":[40,4,-4]}]
+
+- XML
+
+<palette>
+  <color name="Deep Navy" hex="0A154F" r="10" g="21" b="79" />
+  <color name="Dust Grey" hex="E2D6D1" r="226" g="214" b="209" />
+  <color name="Deep Navy" hex="0A1550" r="10" g="21" b="80" />
+  <color name="Charcoal" hex="615C64" r="97" g="92" b="100" />
+</palette>

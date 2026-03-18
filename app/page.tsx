@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import AwardsList from "@/components/AwardsList";
 import TextReveal from "@/components/TextReveal";
 import AwardsVideoScroll from "@/components/AwardsVideoScroll";
 import ClientMapSection from "@/components/ClientMapSection";
@@ -10,10 +11,11 @@ import Footer from "@/components/Footer";
 export default function Home() {
     return (
         <main className="bg-black">
-            <LandoBackground />
-            <LandoExperience />
+            {/* <LandoBackground />
+            <LandoExperience /> */}
             <Hero />
             <TextReveal />
+            <AwardsList />
             <AwardsVideoScroll />
             <ClientMapSection />
 
