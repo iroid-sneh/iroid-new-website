@@ -5,27 +5,26 @@ import SmoothScroll from "@/components/SmoothScroll";
 import Navigation from "@/components/Navigation"; // 1. Import it
 import PixelTransition from "@/components/PixelTransition";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "iRoid Solutions",
+    title: "iRoid Solutions",
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-      <PixelTransition />
-        <SmoothScroll>
-          <Navigation /> {/* 2. Add it here! */}
-          {children}
-        </SmoothScroll>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                {/* <PixelTransition /> */}
+                <SmoothScroll>
+                    <Navigation /> {/* 2. Add it here! */}
+                    {children}
+                </SmoothScroll>
+            </body>
+        </html>
+    );
 }

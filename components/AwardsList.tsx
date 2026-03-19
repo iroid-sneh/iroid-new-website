@@ -86,14 +86,9 @@ export default function AwardsRevealList() {
         const handleScroll = () => {
             const { x, y } = mousePos.current;
             const el = document.elementFromPoint(x, y);
-            // Check if cursor is still inside one of the award rows
             const row = el?.closest("[data-award-row]");
-            if (!row) {
-                setHoveredIndex(null);
-            } else {
-                const idx = Number(row.getAttribute("data-award-row"));
-                setHoveredIndex(idx);
-            }
+            if (!row) setHoveredIndex(null);
+            else setHoveredIndex(Number(row.getAttribute("data-award-row")));
         };
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
@@ -101,37 +96,77 @@ export default function AwardsRevealList() {
 
     useGSAP(
         () => {
-            // 1. THE ENTRANCE ANIMATION (Your existing code)
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 80%",
+                    start: "top 75%",
                     once: true,
                 },
             });
 
             rowsRef.current.forEach((row, index) => {
                 const mask = row.querySelector(".row-mask");
-                tl.fromTo(
+                const content = row.querySelector(".row-content");
+                const startTime = index * 0.1; // FAST STAGGER - No slowing down
+
+                // 1. Initial setup for the row to match your "from reverse" (right side)
+                gsap.set(row, { x: "10%", opacity: 0 });
+                gsap.set(content, { clipPath: "inset(0% 0% 0% 100%)" }); // Hidden from right
+                gsap.set(mask, { scaleX: 0, transformOrigin: "right center" }); // Start from right side
+
+                // 2. Animation Sequence
+                tl.to(
                     row,
-                    { x: "100%", opacity: 0 },
-                    { x: "0%", opacity: 1, duration: 0.8, ease: "power4.out" },
-                    index * 0.1
-                ).to(
-                    mask,
-                    { scaleX: 0, duration: 0.8, ease: "power2.inOut" },
-                    "-=0.6"
-                );
+                    {
+                        x: "0%",
+                        opacity: 1,
+                        duration: 0.5,
+                        ease: "power2.out",
+                    },
+                    startTime
+                )
+
+                    // Mask sweeps from Right to Left
+                    .to(
+                        mask,
+                        {
+                            scaleX: 1,
+                            duration: 0.4,
+                            ease: "expo.inOut",
+                        },
+                        startTime
+                    )
+
+                    // Text un-clips at the same speed as the mask
+                    .to(
+                        content,
+                        {
+                            clipPath: "inset(0% 0% 0% 0%)",
+                            duration: 0.4,
+                            ease: "expo.inOut",
+                        },
+                        startTime
+                    )
+
+                    // Mask finishes by scaling away to the LEFT (The reverse of the text reveal)
+                    .to(
+                        mask,
+                        {
+                            scaleX: 0,
+                            transformOrigin: "left center",
+                            duration: 0.4,
+                            ease: "expo.out",
+                        },
+                        startTime + 0.4
+                    );
             });
 
-            // 2. THE FIX: RESET HOVER STATE ON SCROLL EXIT
-            // This ensures the image disappears when you scroll past the section
             ScrollTrigger.create({
                 trigger: containerRef.current,
-                start: "top bottom", // When top of section enters bottom of viewport
-                end: "bottom top", // When bottom of section leaves top of viewport
-                onLeave: () => setHoveredIndex(null), // Scrolling down past the section
-                onLeaveBack: () => setHoveredIndex(null), // Scrolling up past the section
+                start: "top bottom",
+                end: "bottom top",
+                onLeave: () => setHoveredIndex(null),
+                onLeaveBack: () => setHoveredIndex(null),
             });
         },
         { scope: containerRef }
@@ -142,14 +177,13 @@ export default function AwardsRevealList() {
             ref={containerRef}
             className="relative h-screen w-full bg-black text-white overflow-hidden flex flex-col"
         >
-            {/* FLOATING IMAGE */}
             <div
                 ref={imageRef}
-                className="fixed top-0 left-0 w-[280px] h-[380px] pointer-events-none z-50 overflow-hidden rounded-xl opacity-0 shadow-2xl"
+                className="fixed top-0 left-0 w-[280px] h-[430px] pointer-events-none z-50 overflow-hidden opacity-0 shadow-2xl"
                 style={{
                     opacity: hoveredIndex !== null ? 1 : 0,
                     transform: "translate(-50%, -50%)",
-                    transition: "opacity 0.3s ease", // Increased duration for smoother hide
+                    transition: "opacity 0.3s ease",
                 }}
             >
                 {AWARDS.map((item, i) => (
@@ -162,13 +196,13 @@ export default function AwardsRevealList() {
                 ))}
             </div>
 
-            <div className="max-w-screen w-full mx-auto px-10 pt-6">
+            <div className="max-w-screen w-full mx-auto px-10 pt-12">
                 <p className="font-molika text-[10px] uppercase tracking-[0.5em] text-blue-500">
                     Recognition / Honors
                 </p>
             </div>
 
-            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-10 mt-4">
+            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-10 mt-4 mb-12">
                 {AWARDS.map((award, index) => (
                     <div
                         key={award.id}
@@ -176,9 +210,10 @@ export default function AwardsRevealList() {
                         data-award-row={index}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none overflow-hidden"
+                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none"
                     >
-                        <div className="row-mask absolute inset-0 bg-[#C4E7FF] z-20 origin-right" />
+                        {/* YOUR COLOR: #C4E7FF */}
+                        <div className="row-mask absolute inset-0 bg-[#C4E7FF] z-20" />
 
                         <div className="row-content relative z-10 w-full flex items-center justify-between group-hover:px-4 transition-all duration-500">
                             <div className="flex flex-col">
