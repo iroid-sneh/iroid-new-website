@@ -13,87 +13,105 @@ export default function TextReveal() {
 
         // 1. Split text into lines
         const split = new SplitType(textRef.current, { types: "lines" });
+        if (!split.lines) return;
 
-        split.lines?.forEach((line) => {
-            // Line Styling to match the Lando site logic
+        split.lines.forEach((line) => {
+            // Line Container Styling
             Object.assign(line.style, {
                 position: "relative",
                 display: "block",
                 width: "fit-content",
                 margin: "0 auto",
-                overflow: "hidden",
-                // Text starts hidden via clip-path
+                overflow: "visible", // Allows ghost trail to peek out slightly
                 clipPath: "inset(0% 100% 0% 0%)",
                 webkitClipPath: "inset(0% 100% 0% 0%)",
             });
 
-            // Create the reveal block
-            const mask = document.createElement("div");
-            mask.className = "high-line-reveal";
-
-            Object.assign(mask.style, {
+            // GHOST MASK (The Leader - Bright Blue)
+            const ghost = document.createElement("div");
+            ghost.className = "ghost-mask";
+            Object.assign(ghost.style, {
                 position: "absolute",
-                top: "0",
+                top: "-2%", // Slightly taller to ensure visibility
                 left: "0",
                 width: "100%",
-                height: "100%",
-                backgroundColor: "#c4e7ff", // YOUR color
-                zIndex: "5",
+                height: "104%",
+                backgroundColor: "#25A4FF",
+                zIndex: "10",
+                pointerEvents: "none",
                 transform: "scaleX(0)",
                 transformOrigin: "left center",
             });
 
-            line.appendChild(mask);
+            // PRIMARY MASK (The Follower - Light Blue)
+            const primary = document.createElement("div");
+            primary.className = "primary-mask";
+            Object.assign(primary.style, {
+                position: "absolute",
+                inset: "0",
+                backgroundColor: "#c4e7ff",
+                zIndex: "11",
+                pointerEvents: "none",
+                transform: "scaleX(0)",
+                transformOrigin: "left center",
+            });
+
+            line.appendChild(ghost);
+            line.appendChild(primary);
         });
 
-        // 2. The Timeline
-        const tl = gsap.timeline({ paused: true });
+        // 2. The Animation Timeline
+        const tl = gsap.timeline({
+            paused: true,
+            defaults: { ease: "expo.inOut", duration: 0.7 },
+        });
 
-        split.lines?.forEach((line, index) => {
-            const mask = line.querySelector(".high-line-reveal");
-            const startTime = index * 0.15; // Fast stagger
+        split.lines.forEach((line, index) => {
+            const ghost = line.querySelector(".ghost-mask");
+            const primary = line.querySelector(".primary-mask");
+            const startTime = index * 0.15; // Fast mechanical stagger
 
-            // Phase A: Reveal (Grow from left)
             tl.to(
-                mask,
-                {
-                    scaleX: 1,
-                    duration: 0.5,
-                    ease: "expo.inOut",
-                    transformOrigin: "left center",
-                },
+                ghost,
+                { scaleX: 1, transformOrigin: "left center" },
                 startTime
             )
+                // Reveal text exactly with the lead ghost mask
                 .to(
                     line,
                     {
                         clipPath: "inset(0% 0% 0% 0%)",
                         webkitClipPath: "inset(0% 0% 0% 0%)",
-                        duration: 0.5,
-                        ease: "expo.inOut",
                     },
                     startTime
                 )
-
-                // Phase B: Hide Block (Shrink to right)
-                // This is what creates that "same to same" mechanical look
+                // Secondary mask follows 0.1s later for the "trail" effect
                 .to(
-                    mask,
-                    {
-                        scaleX: 0,
-                        duration: 0.5,
-                        ease: "expo.inOut",
-                        transformOrigin: "right center",
-                    },
-                    startTime + 0.5
+                    primary,
+                    { scaleX: 1, transformOrigin: "left center" },
+                    startTime + 0.1
+                )
+
+                // EXIT PHASE: Shrink to the right
+                .to(
+                    ghost,
+                    { scaleX: 0, transformOrigin: "right center" },
+                    startTime + 0.7
+                )
+                .to(
+                    primary,
+                    { scaleX: 0, transformOrigin: "right center" },
+                    startTime + 0.8
                 );
         });
 
+        // 3. Intersection Observer to trigger when scrolled into view
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         tl.play();
+                        observer.disconnect(); // Play once
                     }
                 });
             },
