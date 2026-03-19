@@ -68,13 +68,11 @@ export default function AwardsRevealList() {
                 duration: 0.6,
                 ease: "power3",
             });
-
             const handleMouseMove = (e: MouseEvent) => {
                 mousePos.current = { x: e.clientX, y: e.clientY };
                 xTo(e.clientX);
                 yTo(e.clientY);
             };
-
             window.addEventListener("mousemove", handleMouseMove);
             return () =>
                 window.removeEventListener("mousemove", handleMouseMove);
@@ -105,68 +103,72 @@ export default function AwardsRevealList() {
             });
 
             rowsRef.current.forEach((row, index) => {
-                const mask = row.querySelector(".row-mask");
+                const ghost = row.querySelector(".row-mask-ghost");
+                const primary = row.querySelector(".row-mask-primary");
                 const content = row.querySelector(".row-content");
-                const startTime = index * 0.1; // FAST STAGGER - No slowing down
+                const startTime = index * 0.12; // Mechanical stagger
 
-                // 1. Initial setup for the row to match your "from reverse" (right side)
-                gsap.set(row, { x: "10%", opacity: 0 });
-                gsap.set(content, { clipPath: "inset(0% 0% 0% 100%)" }); // Hidden from right
-                gsap.set(mask, { scaleX: 0, transformOrigin: "right center" }); // Start from right side
+                // Initial Setup
+                gsap.set(row, { opacity: 0, x: 20 });
+                gsap.set([ghost, primary], {
+                    scaleX: 0,
+                    transformOrigin: "right center",
+                });
+                gsap.set(content, { clipPath: "inset(0% 0% 0% 100%)" });
 
-                // 2. Animation Sequence
                 tl.to(
                     row,
-                    {
-                        x: "0%",
-                        opacity: 1,
-                        duration: 0.5,
-                        ease: "power2.out",
-                    },
+                    { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" },
                     startTime
                 )
 
-                    // Mask sweeps from Right to Left
+                    // --- REVEAL PHASE (Double Trail) ---
+                    // 1. Ghost Mask Leads
                     .to(
-                        mask,
-                        {
-                            scaleX: 1,
-                            duration: 0.4,
-                            ease: "expo.inOut",
-                        },
+                        ghost,
+                        { scaleX: 1, duration: 0.5, ease: "expo.inOut" },
                         startTime
                     )
-
-                    // Text un-clips at the same speed as the mask
+                    // 2. Content unclips with the ghost leader
                     .to(
                         content,
                         {
                             clipPath: "inset(0% 0% 0% 0%)",
-                            duration: 0.4,
+                            duration: 0.5,
                             ease: "expo.inOut",
                         },
                         startTime
                     )
-
-                    // Mask finishes by scaling away to the LEFT (The reverse of the text reveal)
+                    // 3. Primary Mask Follows (0.1s lag)
                     .to(
-                        mask,
+                        primary,
+                        { scaleX: 1, duration: 0.5, ease: "expo.inOut" },
+                        startTime + 0.1
+                    )
+
+                    // --- EXIT PHASE (Trail at end) ---
+                    // 4. Primary (Top) leaves first
+                    .to(
+                        primary,
                         {
                             scaleX: 0,
                             transformOrigin: "left center",
-                            duration: 0.4,
-                            ease: "expo.out",
+                            duration: 0.5,
+                            ease: "expo.inOut",
                         },
-                        startTime + 0.4
+                        startTime + 0.7
+                    )
+                    // 5. Ghost (Bottom) leaves last, creating the trail at the end
+                    .to(
+                        ghost,
+                        {
+                            scaleX: 0,
+                            transformOrigin: "left center",
+                            duration: 0.5,
+                            ease: "expo.inOut",
+                        },
+                        startTime + 0.8
                     );
-            });
-
-            ScrollTrigger.create({
-                trigger: containerRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                onLeave: () => setHoveredIndex(null),
-                onLeaveBack: () => setHoveredIndex(null),
             });
         },
         { scope: containerRef }
@@ -175,7 +177,7 @@ export default function AwardsRevealList() {
     return (
         <section
             ref={containerRef}
-            className="relative h-screen w-full bg-black text-white overflow-hidden flex flex-col"
+            className="relative h-screen w-full bg-[#00024c] text-white overflow-hidden flex flex-col"
         >
             <div
                 ref={imageRef}
@@ -197,12 +199,12 @@ export default function AwardsRevealList() {
             </div>
 
             <div className="max-w-screen w-full mx-auto px-10 pt-12">
-                <p className="font-molika text-[10px] uppercase tracking-[0.5em] text-blue-500">
+                <p className="font-mono text-[10px] uppercase tracking-[0.5em] text-blue-500">
                     Recognition / Honors
                 </p>
             </div>
 
-            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-10 mt-4 mb-12">
+            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-10 mt-4 mb-12 border-t border-white/10">
                 {AWARDS.map((award, index) => (
                     <div
                         key={award.id}
@@ -210,29 +212,30 @@ export default function AwardsRevealList() {
                         data-award-row={index}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none"
+                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none overflow-hidden transition-colors duration-300 hover:bg-[#C4E7FF]"
                     >
-                        {/* YOUR COLOR: #C4E7FF */}
-                        <div className="row-mask absolute inset-0 bg-[#C4E7FF] z-20" />
+                        {/* THE GHOST SHUTTERS */}
+                        <div className="row-mask-ghost absolute inset-0 bg-[#25A4FF] z-20 pointer-events-none" />
+                        <div className="row-mask-primary absolute inset-0 bg-[#C4E7FF] z-21 pointer-events-none" />
 
-                        <div className="row-content relative z-10 w-full flex items-center justify-between group-hover:px-4 transition-all duration-500">
+                        <div className="row-content relative z-10 w-full flex items-center justify-between transition-all duration-500">
                             <div className="flex flex-col">
-                                <span className="font-molika text-[9px] opacity-30 uppercase tracking-widest">
+                                <span className="font-mono text-[9px] opacity-30 uppercase tracking-widest transition-colors duration-300 group-hover:text-[#00024c] group-hover:opacity-100">
                                     Award 0{index + 1}
                                 </span>
-                                <h3 className="text-xl md:text-5xl font-black uppercase leading-none">
+                                <h3 className="text-xl md:text-5xl font-black uppercase leading-none transition-colors duration-300 group-hover:text-[#00024c]">
                                     {award.title}
                                 </h3>
                             </div>
 
                             <div className="hidden md:block">
-                                <p className="font-retail-italic italic text-xl text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <p className="font-serif italic text-xl text-blue-400 opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:text-[#00024c]">
                                     {award.category}
                                 </p>
                             </div>
 
                             <div className="text-right">
-                                <span className="font-molika text-sm md:text-lg opacity-20 group-hover:opacity-100 transition-opacity">
+                                <span className="font-mono text-sm md:text-lg opacity-20 transition-all duration-300 group-hover:opacity-100 group-hover:text-[#00024c]">
                                     {award.org}
                                 </span>
                             </div>
