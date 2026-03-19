@@ -194,7 +194,7 @@ export default function AwardsVideoScroll() {
     const cardRef = useRef(null);
     const videoRef = useRef(null);
     const introTextRef = useRef(null);
-    const awardsRef = useRef([]);
+    const awardsRef = useRef<HTMLDivElement[]>([]);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -273,39 +273,40 @@ export default function AwardsVideoScroll() {
             className="relative w-full h-screen bg-white overflow-hidden"
         >
             {/* BACKGROUND TEXT LAYER */}
-            {/* BACKGROUND TEXT LAYER */}
             <div
                 ref={introTextRef}
                 className="absolute inset-0 flex flex-col items-center justify-center z-0 w-full overflow-hidden"
             >
                 {/* Small Top Label */}
-                <span className="text-[14px] md:text-[18px] font-bold text-black tracking-[0.6em] mb-4 uppercase">
+                <span className="text-[10px] sm:text-[14px] md:text-[18px] font-bold text-black tracking-[0.3em] sm:tracking-[0.6em] mb-2 sm:mb-4 uppercase">
                     5 Reasons
                 </span>
 
                 {/* Main Large Heading Row */}
-                <div className="flex items-center justify-center w-full px-10">
-                    <h2 className="text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
+                <div className="flex items-center justify-center w-full px-4 sm:px-10">
+                    <h2 className="text-[10vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
                         To Be
                     </h2>
 
                     {/* THE GAP: This width should match the initial width of your card (cardRef) */}
-                    <div className="w-[25vw] md:w-[20vw] flex-shrink-0"></div>
+                    <div className="w-[35vw] sm:w-[25vw] md:w-[20vw] flex-shrink-0"></div>
 
-                    <h2 className="text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
+                    <h2 className="text-[10vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
                         iRoid
                     </h2>
                 </div>
             </div>
 
             {/* 3D CARD WRAPPER */}
-            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+            <div
+                className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                style={{ perspective: "1000px" }}
+            >
                 <div
                     ref={cardRef}
-                    className="relative w-[300px] h-[450px] bg-black rounded-xl overflow-hidden shadow-2xl"
+                    className="relative w-[200px] h-[300px] sm:w-[300px] sm:h-[450px] bg-black rounded-xl overflow-hidden shadow-2xl"
                     style={{
                         transformStyle: "preserve-3d",
-                        perspective: "1000px",
                     }}
                 >
                     {/* BACK FACE (The wooden slats seen in recording 1) */}
@@ -333,10 +334,7 @@ export default function AwardsVideoScroll() {
                             loop
                             playsInline
                         >
-                            <source
-                                src="/media/achieve-2.mp4"
-                                type="video/mp4"
-                            />
+                            <source src="/media/Reel.mp4" type="video/mp4" />
                         </video>
                         {/* Dark overlay for text readability */}
                         <div className="absolute inset-0 bg-black/20" />
@@ -349,16 +347,16 @@ export default function AwardsVideoScroll() {
                 {AWARDS_DATA.map((award, i) => (
                     <div
                         key={i}
-                        ref={(el) => (awardsRef.current[i] = el)}
+                        ref={(el) => { if (el) awardsRef.current[i] = el; }}
                         className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 opacity-0"
                     >
-                        <h3 className="text-[8vw] font-bold leading-none">
+                        <h3 className="text-[12vw] sm:text-[8vw] font-bold leading-none">
                             {award.title}
                         </h3>
-                        <h4 className="text-[3vw] font-light tracking-widest mt-2">
+                        <h4 className="text-[4vw] sm:text-[3vw] font-light tracking-widest mt-2">
                             {award.desc}
                         </h4>
-                        <p className="max-w-md mt-6 text-lg opacity-70">
+                        <p className="max-w-md mt-4 sm:mt-6 text-sm sm:text-lg opacity-70 px-4">
                             {award.sub}
                         </p>
                     </div>

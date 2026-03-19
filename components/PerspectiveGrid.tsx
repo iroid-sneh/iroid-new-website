@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -18,10 +18,19 @@ function gridImageUrl(index: number) {
     return `/media/scroll3dgrid/${index}.jpg`;
 }
 
+function useIsMobile() {
+    const [isMobile, setIsMobile] = React.useState(false);
+    React.useEffect(() => {
+        setIsMobile(window.innerWidth < 640);
+    }, []);
+    return isMobile;
+}
+
 export default function PerspectiveGrid() {
     const contentRef = useRef<HTMLDivElement>(null);
     const gridRef = useRef<HTMLDivElement>(null);
     const gridWrapRef = useRef<HTMLDivElement>(null);
+    const isMobileView = useIsMobile();
 
     useEffect(() => {
         if (!contentRef.current || !gridRef.current || !gridWrapRef.current)
@@ -35,10 +44,13 @@ export default function PerspectiveGrid() {
         );
 
         // type3 CSS vars (same as Scroll3DGrid grid--3)
+        const isMobile = window.innerWidth < 640;
+        const cols = isMobile ? 4 : 8;
         grid.style.setProperty("--grid-width", "105%");
-        grid.style.setProperty("--grid-columns", "8");
+        grid.style.setProperty("--grid-columns", String(cols));
         grid.style.setProperty("--perspective", "1500px");
         grid.style.setProperty("--grid-inner-scale", "0.5");
+        gridWrap.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
         // Timeline: scrub while section scrolls (no pin) — same as demo
         const tl = gsap.timeline({
@@ -89,10 +101,10 @@ export default function PerspectiveGrid() {
             ref={contentRef}
             className="relative z-40 overflow-hidden bg-black isolate"
             style={{
-                paddingTop: "60vh",
-                paddingBottom: "60vh",
+                paddingTop: isMobileView ? "30vh" : "60vh",
+                paddingBottom: isMobileView ? "30vh" : "60vh",
                 // Extra space below so Footer only appears after grid is fully out of view (keeps 3D feel)
-                marginBottom: "400vh",
+                marginBottom: isMobileView ? "150vh" : "400vh",
             }}
         >
             <div

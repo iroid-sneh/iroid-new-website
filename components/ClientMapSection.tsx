@@ -60,19 +60,19 @@ export default function MapSection() {
                 <div className="absolute inset-0 flex flex-col justify-center items-end z-10 pointer-events-none">
                     <motion.div
                         style={{ x: line1X }}
-                        className="text-[12vw] font-bold text-black leading-none uppercase whitespace-nowrap pr-20"
+                        className="text-[14vw] sm:text-[12vw] font-bold text-black leading-none uppercase whitespace-nowrap pr-4 sm:pr-20"
                     >
                         We have done
                     </motion.div>
                     <motion.div
                         style={{ x: line2X }}
-                        className="text-[12vw] font-bold text-black leading-none uppercase whitespace-nowrap pr-40"
+                        className="text-[14vw] sm:text-[12vw] font-bold text-black leading-none uppercase whitespace-nowrap pr-8 sm:pr-40"
                     >
                         Projects Around
                     </motion.div>
                     <motion.div
                         style={{ x: line3X }}
-                        className="text-[12vw] font-bold text-black leading-none uppercase whitespace-nowrap pr-10"
+                        className="text-[14vw] sm:text-[12vw] font-bold text-black leading-none uppercase whitespace-nowrap pr-2 sm:pr-10"
                     >
                         The World
                     </motion.div>
@@ -138,19 +138,19 @@ function MapPin({
                 {/* The Circle */}
                 <motion.div
                     style={isTransitionPin ? { scale } : {}}
-                    className="w-2.5 h-2.5 rounded-full bg-black shrink-0 origin-center relative z-20"
+                    className="w-1.5 h-1.5 sm:w-2.5 sm:h-2.5 rounded-full bg-black shrink-0 origin-center relative z-20"
                 />
                 {/* The Stick */}
                 <motion.div
                     style={isTransitionPin ? { opacity: fadeOut } : {}}
-                    className="w-[1.5px] h-4 bg-black/40 relative z-10"
+                    className="w-[1px] sm:w-[1.5px] h-2 sm:h-4 bg-black/40 relative z-10"
                 />
             </div>
 
             {/* The Text */}
             <motion.span
                 style={isTransitionPin ? { opacity: fadeOut } : {}}
-                className="text-[13px] md:text-[14px] font-semibold text-black uppercase tracking-tighter mt-2.5 whitespace-nowrap"
+                className="text-[9px] sm:text-[13px] md:text-[14px] font-semibold text-black uppercase tracking-tighter mt-1.5 sm:mt-2.5 whitespace-nowrap"
             >
                 {city.name}
             </motion.span>

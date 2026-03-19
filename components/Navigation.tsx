@@ -99,7 +99,7 @@ export default function Navigation() {
   return (
     <>
       {/* Toggle Button */}
-      <header className="fixed top-8 right-8 z-[100] flex justify-end">
+      <header className="fixed top-4 right-4 sm:top-8 sm:right-8 z-[100] flex justify-end">
         <button
           onClick={toggleMenu}
           className="sidenav__toggle-text-color flex items-center gap-2 bg-transparent border-none cursor-pointer text-white transition-colors duration-300"
@@ -147,16 +147,16 @@ export default function Navigation() {
                 { title: "Blog", slug: "blog", id: "04" },
                 { title: "Contact", slug: "contact", id: "05" },
               ].map((item, i) => (
-                <li key={i} className="relative overflow-hidden h-20 md:h-24">
+                <li key={i} className="relative overflow-hidden h-14 sm:h-20 md:h-24">
                   <Link
                     href={`/${item.slug}`}
-                    className="sidenav__menu-link flex items-start gap-3 w-full h-full py-3 text-[#102458]"
+                    className="sidenav__menu-link flex items-start gap-2 sm:gap-3 w-full h-full py-2 sm:py-3 text-[#102458]"
                     onClick={toggleMenu}
                   >
-                    <p className="text-5xl md:text-[5.625em] font-bold leading-[0.8] tracking-tight uppercase m-0">
+                    <p className="text-3xl sm:text-5xl md:text-[5.625em] font-bold leading-[0.8] tracking-tight uppercase m-0">
                       {item.title}
                     </p>
-                    <p className="text-[#e04645] font-mono text-sm pt-2">
+                    <p className="text-[#e04645] font-mono text-xs sm:text-sm pt-1 sm:pt-2">
                       {item.id}
                     </p>
                   </Link>
@@ -165,17 +165,17 @@ export default function Navigation() {
             </ul>
 
             {/* Socials */}
-            <div className="flex flex-col gap-5 pl-8 md:pl-16 mt-8">
-              <p className="sidenav__fade text-[#131313] text-lg opacity-0 font-medium">
+            <div className="flex flex-col gap-3 sm:gap-5 pl-8 md:pl-16 mt-6 sm:mt-8">
+              <p className="sidenav__fade text-[#131313] text-base sm:text-lg opacity-0 font-medium">
                 Socials
               </p>
-              <div className="flex flex-wrap gap-6">
+              <div className="flex flex-wrap gap-4 sm:gap-6">
                 {["Instagram", "LinkedIn", "X/Twitter", "Awwwards"].map(
                   (social, i) => (
                     <a
                       key={i}
                       href="#"
-                      className="sidenav__fade text-[#131313] text-lg opacity-0 hover:text-[#e04645] transition-colors"
+                      className="sidenav__fade text-[#131313] text-base sm:text-lg opacity-0 hover:text-[#e04645] transition-colors"
                     >
                       {social}
                     </a>

@@ -181,7 +181,7 @@ export default function AwardsRevealList() {
         >
             <div
                 ref={imageRef}
-                className="fixed top-0 left-0 w-[280px] h-[430px] pointer-events-none z-50 overflow-hidden opacity-0 shadow-2xl"
+                className="hidden md:block fixed top-0 left-0 w-[280px] h-[430px] pointer-events-none z-50 overflow-hidden opacity-0 shadow-2xl"
                 style={{
                     opacity: hoveredIndex !== null ? 1 : 0,
                     transform: "translate(-50%, -50%)",
@@ -198,21 +198,21 @@ export default function AwardsRevealList() {
                 ))}
             </div>
 
-            <div className="max-w-screen w-full mx-auto px-10 pt-12">
+            <div className="max-w-screen w-full mx-auto px-4 sm:px-10 pt-8 sm:pt-12">
                 <p className="font-mono text-[10px] uppercase tracking-[0.5em] text-blue-500">
                     Recognition / Honors
                 </p>
             </div>
 
-            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-10 mt-4 mb-12 border-t border-white/10">
+            <div className="flex-grow flex flex-col max-w-screen w-full mx-auto px-4 sm:px-10 mt-4 mb-8 sm:mb-12 border-t border-white/10">
                 {AWARDS.map((award, index) => (
                     <div
                         key={award.id}
-                        ref={(el) => (rowsRef.current[index] = el!)}
+                        ref={(el) => { if (el) rowsRef.current[index] = el; }}
                         data-award-row={index}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
-                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-none overflow-hidden transition-colors duration-300 hover:bg-[#C4E7FF]"
+                        className="group relative flex-1 flex items-center justify-between border-b border-white/10 cursor-default md:cursor-none overflow-hidden transition-colors duration-300 hover:bg-[#C4E7FF] px-1 sm:px-0"
                     >
                         {/* THE GHOST SHUTTERS */}
                         <div className="row-mask-ghost absolute inset-0 bg-[#25A4FF] z-20 pointer-events-none" />
@@ -223,7 +223,7 @@ export default function AwardsRevealList() {
                                 <span className="font-mono text-[9px] opacity-30 uppercase tracking-widest transition-colors duration-300 group-hover:text-[#00024c] group-hover:opacity-100">
                                     Award 0{index + 1}
                                 </span>
-                                <h3 className="text-xl md:text-5xl font-black uppercase leading-none transition-colors duration-300 group-hover:text-[#00024c]">
+                                <h3 className="text-base sm:text-xl md:text-5xl font-black uppercase leading-none transition-colors duration-300 group-hover:text-[#00024c]">
                                     {award.title}
                                 </h3>
                             </div>
