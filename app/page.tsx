@@ -7,6 +7,7 @@ import PerspectiveGrid from "@/components/PerspectiveGrid";
 import LandoExperience from "@/components/lando/LandoExperience";
 import LandoBackground from "@/components/lando/LandoBackground";
 import Footer from "@/components/Footer";
+import AboutSection from "@/components/AboutSection";
 
 export default function Home() {
     return (
@@ -14,6 +15,7 @@ export default function Home() {
             {/* <LandoBackground />
             <LandoExperience /> */}
             <Hero />
+            <AboutSection />
             <TextReveal />
             <AwardsList />
             <AwardsVideoScroll />

@@ -158,17 +158,8 @@ export default function AwardsRevealList() {
                         },
                         startTime + 0.7
                     )
-                    // 5. Ghost (Bottom) leaves last, creating the trail at the end
-                    .to(
-                        ghost,
-                        {
-                            scaleX: 0,
-                            transformOrigin: "left center",
-                            duration: 0.5,
-                            ease: "expo.inOut",
-                        },
-                        startTime + 0.8
-                    );
+                    // End phase uses only the primary mask (no trailing ghost).
+                    .set(ghost, { scaleX: 0 }, startTime + 0.7);
             });
         },
         { scope: containerRef }
@@ -177,7 +168,7 @@ export default function AwardsRevealList() {
     return (
         <section
             ref={containerRef}
-            className="relative h-screen w-full bg-[#00024c] text-white overflow-hidden flex flex-col"
+            className="relative h-screen w-full bg-[#00024c] text-[#F5F5F7] overflow-hidden flex flex-col"
         >
             <div
                 ref={imageRef}
@@ -208,7 +199,9 @@ export default function AwardsRevealList() {
                 {AWARDS.map((award, index) => (
                     <div
                         key={award.id}
-                        ref={(el) => { if (el) rowsRef.current[index] = el; }}
+                        ref={(el) => {
+                            if (el) rowsRef.current[index] = el;
+                        }}
                         data-award-row={index}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}

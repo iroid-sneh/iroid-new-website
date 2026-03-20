@@ -37,6 +37,7 @@ export default function TextReveal() {
                 width: "100%",
                 height: "104%",
                 backgroundColor: "#25A4FF",
+                // backgroundColor: "#2D5BFF",
                 // backgroundColor: "#2D62E8",
                 // backgroundColor: "#9CB8FF",
                 // backgroundColor: "#EDEECE",
@@ -140,7 +141,7 @@ export default function TextReveal() {
             <div className="w-full flex justify-center">
                 <h2
                     ref={textRef}
-                    className="text-white text-center text-4xl md:text-6xl lg:text-[7.5rem] leading-[0.9] font-black uppercase tracking-tighter"
+                    className="text-[#F5F5F7] text-center text-4xl md:text-6xl lg:text-[7.5rem] leading-[0.9] font-black uppercase tracking-tighter"
                 >
                     Redefining limits,
                     <br />

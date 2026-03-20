@@ -26,3 +26,33 @@
   <color name="Deep Navy" hex="0A1550" r="10" g="21" b="80" />
   <color name="Charcoal" hex="615C64" r="97" g="92" b="100" />
 </palette>
+
+
+-------------------------
+--deep-twilight: #07004dff;
+--steel-blue: #2d82b7ff;
+--aquamarine: #42e2b8ff;
+--pearl-beige: #f3dfbfff;
+--light-coral: #eb8a90ff;
+-----------------------------
+--tuscan-sun: #eec643ff;
+--onyx: #141414ff;
+--platinum: #eef0f2ff;
+--vivid-royal: #0d21a1ff;
+--prussian-blue: #011638ff;
+-----------------------------
+--prussian-blue: #00072dff;
+--deep-navy: #001c55ff;
+--imperial-blue: #0a2472ff;
+--cornflower-ocean: #0e6ba8ff;
+--frosted-blue: #a6e1faff;
+-----------------------------
+--deep-twilight: #03045eff;
+--french-blue: #023e8aff;
+--bright-teal-blue: #0077b6ff;
+--blue-green: #0096c7ff;
+--turquoise-surf: #00b4d8ff;
+--sky-aqua: #48cae4ff;
+--frosted-blue: #90e0efff;
+--frosted-blue-2: #ade8f4ff;
+--light-cyan: #caf0f8ff;

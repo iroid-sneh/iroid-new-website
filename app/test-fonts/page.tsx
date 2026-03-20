@@ -39,6 +39,21 @@ export default function FontTest() {
             class: "font-retail-variable",
             type: "Technical/SaaS",
         },
+        {
+            name: "Pressio Test 43",
+            class: "font-pressio-test43",
+            type: "Stencil/Display",
+        },
+        {
+            name: "Right Grotesk Medium",
+            class: "font-right-grotesk-medium",
+            type: "Sans/Body",
+        },
+        {
+            name: "Right Grotesk Compact Black",
+            class: "font-right-grotesk-compact-black",
+            type: "Impact/Headline",
+        },
     ];
 
     return (

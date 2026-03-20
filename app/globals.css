@@ -166,11 +166,36 @@ body {
     --font-retail-variable: "RetailVariable";
     --font-retail-family: "RetailFamily";
     --font-druk: "Druk";
+    --font-pressio-test43: "PressioTest43";
+    --font-right-grotesk-medium: "RightGroteskMedium";
+    --font-right-grotesk-compact-black: "RightGroteskCompactBlack";
 }
 
 @font-face {
     font-family: "Druk";
     src: url("/fonts/Druk/DrukCond-Super-Trial.otf") format("opentype");
+}
+
+@font-face {
+    font-family: "PressioTest43";
+    src: url("/fonts/pressio-stencil-font-family/PressioStencilTEST-No43.otf")
+        format("opentype");
+}
+
+@font-face {
+    font-family: "RightGroteskMedium";
+    src: url(
+            "/fonts/right-grotesk-free-for-personal-use/Right%20Grotesk%20-%20Free%20for%20Personal%20Use/RightGrotesk-Medium.otf"
+        )
+        format("opentype");
+}
+
+@font-face {
+    font-family: "RightGroteskCompactBlack";
+    src: url(
+            "/fonts/right-grotesk-free-for-personal-use/Right%20Grotesk%20-%20Free%20for%20Personal%20Use/RightGrotesk-CompactBlack.otf"
+        )
+        format("opentype");
 }
 
 .premium-text {
