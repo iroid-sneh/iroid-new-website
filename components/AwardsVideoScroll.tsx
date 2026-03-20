@@ -160,7 +160,7 @@
 //     );
 // }
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -192,40 +192,113 @@ const AWARDS_DATA = [
 export default function AwardsVideoScroll() {
     const containerRef = useRef(null);
     const cardRef = useRef(null);
-    const videoRef = useRef(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const videoLayerRef = useRef<HTMLDivElement>(null);
     const introTextRef = useRef(null);
     const awardsRef = useRef<HTMLDivElement[]>([]);
+    const hasFlippedRef = useRef(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
+        setIsMobile(window.innerWidth < 640);
+    }, []);
+
+    const tryPlayVideo = useCallback(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        // Force muted for mobile autoplay compliance
+        video.muted = true;
+        video.defaultMuted = true;
+
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                // Autoplay was prevented
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        const playOnInteraction = () => {
+            tryPlayVideo();
+            document.removeEventListener("touchstart", playOnInteraction);
+            document.removeEventListener("scroll", playOnInteraction);
+        };
+        document.addEventListener("touchstart", playOnInteraction, {
+            passive: true,
+        });
+        document.addEventListener("scroll", playOnInteraction, {
+            passive: true,
+        });
+
+        return () => {
+            document.removeEventListener("touchstart", playOnInteraction);
+            document.removeEventListener("scroll", playOnInteraction);
+        };
+    }, [tryPlayVideo]);
+
+    useEffect(() => {
+        const isMobileCheck = window.innerWidth < 640;
+        const video = videoRef.current;
+
+        if (video) {
+            // Programmatic attribute forcing for Mobile Safari
+            video.setAttribute("muted", "");
+            video.setAttribute("playsinline", "");
+            video.setAttribute("webkit-playsinline", "");
+            video.muted = true;
+            video.load();
+        }
+
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: containerRef.current,
                     start: "top top",
-                    end: "+=800%", // Long enough for all steps
+                    end: isMobileCheck ? "+=600%" : "+=800%",
                     pin: true,
                     scrub: 1,
+                    onEnter: () => {
+                        tryPlayVideo(); // Start playing as soon as we enter section
+                    },
+                    onUpdate: (self) => {
+                        const flipMidpoint = 3 / (isMobileCheck ? 11 : 15);
+                        if (
+                            self.progress > flipMidpoint &&
+                            !hasFlippedRef.current
+                        ) {
+                            hasFlippedRef.current = true;
+                            if (videoLayerRef.current) {
+                                videoLayerRef.current.style.opacity = "1";
+                            }
+                            tryPlayVideo();
+                        }
+                        if (
+                            self.progress < flipMidpoint &&
+                            hasFlippedRef.current
+                        ) {
+                            hasFlippedRef.current = false;
+                            if (videoLayerRef.current) {
+                                videoLayerRef.current.style.opacity = "0.01"; // Keep at 0.01 for mobile
+                            }
+                        }
+                    },
                 },
             });
 
-            // 1. Initial State: Card is below screen
-            // 2. Slide card up into the middle of the text
             tl.fromTo(
                 cardRef.current,
                 { y: "100vh", rotationY: -20, scale: 0.8 },
                 { y: "0vh", rotationY: 0, scale: 1, duration: 2 }
             );
 
-            // 3. The 3D Flip (Rotating the card to show the video/front face)
-            // Note: In the video, it flips specifically to reveal the project
             tl.to(cardRef.current, {
                 rotationY: 180,
                 duration: 2,
                 ease: "power2.inOut",
             });
 
-            // 4. Expansion: Grow the card to fill the screen
-            // We use a combination of scale and clipPath to make it seamless
             tl.to(
                 cardRef.current,
                 {
@@ -239,22 +312,27 @@ export default function AwardsVideoScroll() {
                 "-=0.5"
             );
 
-            // 5. Fade out the background "5 Reasons" text as video fills screen
+            tl.to(
+                videoLayerRef.current,
+                {
+                    width: "100vw",
+                    height: "100vh",
+                    borderRadius: "0px",
+                    duration: 3,
+                    ease: "none",
+                },
+                "-=3"
+            );
+
             tl.to(introTextRef.current, { opacity: 0, duration: 1 }, "-=2");
 
-            // 6. Sequential Stats Overlay
             AWARDS_DATA.forEach((_, index) => {
-                // Text comes up
                 tl.fromTo(
                     awardsRef.current[index],
                     { y: 100, opacity: 0 },
                     { y: 0, opacity: 1, duration: 2 }
                 );
-
-                // Stay for a bit (Scrubbing delay)
                 tl.to({}, { duration: 2 });
-
-                // Text goes up and out (except the last one if you want it to stay)
                 if (index !== AWARDS_DATA.length - 1) {
                     tl.to(awardsRef.current[index], {
                         y: -100,
@@ -265,51 +343,70 @@ export default function AwardsVideoScroll() {
             });
         });
         return () => ctx.revert();
-    }, []);
+    }, [tryPlayVideo]);
 
     return (
         <div
             ref={containerRef}
             className="relative w-full h-screen bg-white overflow-hidden"
         >
-            {/* BACKGROUND TEXT LAYER */}
             <div
                 ref={introTextRef}
                 className="absolute inset-0 flex flex-col items-center justify-center z-0 w-full overflow-hidden"
             >
-                {/* Small Top Label */}
                 <span className="text-[10px] sm:text-[14px] md:text-[18px] font-bold text-black tracking-[0.3em] sm:tracking-[0.6em] mb-2 sm:mb-4 uppercase">
                     5 Reasons
                 </span>
-
-                {/* Main Large Heading Row */}
-                <div className="flex items-center justify-center w-full px-4 sm:px-10">
-                    <h2 className="text-[10vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
+                <div className="flex flex-col sm:flex-row items-center justify-center w-full px-4 sm:px-10">
+                    <h2 className="text-[14vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
                         To Be
                     </h2>
-
-                    {/* THE GAP: This width should match the initial width of your card (cardRef) */}
-                    <div className="w-[35vw] sm:w-[25vw] md:w-[20vw] flex-shrink-0"></div>
-
-                    <h2 className="text-[10vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
+                    <div className="hidden sm:block w-[25vw] md:w-[20vw] flex-shrink-0"></div>
+                    <div className="block sm:hidden h-[55vw]"></div>
+                    <h2 className="text-[14vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
                         iRoid
                     </h2>
                 </div>
             </div>
 
-            {/* 3D CARD WRAPPER */}
+            <div
+                ref={videoLayerRef}
+                className="absolute z-[11] rounded-xl overflow-hidden pointer-events-none"
+                style={{
+                    opacity: 0.01, // 0.01 prevents mobile from pausing video to save energy
+                    width: isMobile ? "40vw" : "300px",
+                    height: isMobile ? "50vw" : "450px",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    transition: "opacity 0.3s ease",
+                }}
+            >
+                <video
+                    ref={videoRef}
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto" // auto ensures mobile device pre-fetches the video
+                >
+                    <source src="/media/Reel.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-black/20" />
+            </div>
+
             <div
                 className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
                 style={{ perspective: "1000px" }}
             >
                 <div
                     ref={cardRef}
-                    className="relative w-[200px] h-[300px] sm:w-[300px] sm:h-[450px] bg-black rounded-xl overflow-hidden shadow-2xl"
+                    className="relative w-[40vw] h-[50vw] sm:w-[300px] sm:h-[450px] bg-black rounded-xl overflow-hidden shadow-2xl"
                     style={{
                         transformStyle: "preserve-3d",
                     }}
                 >
-                    {/* BACK FACE (The wooden slats seen in recording 1) */}
                     <div className="absolute inset-0 w-full h-full bg-[#222] backface-hidden flex items-center justify-center">
                         <div className="grid grid-cols-6 gap-1 w-full h-full p-2">
                             {[...Array(6)].map((_, i) => (
@@ -321,42 +418,29 @@ export default function AwardsVideoScroll() {
                         </div>
                     </div>
 
-                    {/* FRONT FACE (The Video) */}
                     <div
-                        className="absolute inset-0 w-full h-full backface-hidden"
+                        className="absolute inset-0 w-full h-full backface-hidden bg-black"
                         style={{ transform: "rotateY(180deg)" }}
-                    >
-                        <video
-                            ref={videoRef}
-                            className="w-full h-full object-cover"
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                        >
-                            <source src="/media/Reel.mp4" type="video/mp4" />
-                        </video>
-                        {/* Dark overlay for text readability */}
-                        <div className="absolute inset-0 bg-black/20" />
-                    </div>
+                    />
                 </div>
             </div>
 
-            {/* STATS TEXT OVERLAY */}
             <div className="absolute inset-0 z-20 pointer-events-none">
                 {AWARDS_DATA.map((award, i) => (
                     <div
                         key={i}
-                        ref={(el) => { if (el) awardsRef.current[i] = el; }}
+                        ref={(el) => {
+                            if (el) awardsRef.current[i] = el;
+                        }}
                         className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4 opacity-0"
                     >
-                        <h3 className="text-[12vw] sm:text-[8vw] font-bold leading-none">
+                        <h3 className="text-[10vw] sm:text-[8vw] font-bold leading-none">
                             {award.title}
                         </h3>
-                        <h4 className="text-[4vw] sm:text-[3vw] font-light tracking-widest mt-2">
+                        <h4 className="text-[3.5vw] sm:text-[3vw] font-light tracking-widest mt-1 sm:mt-2">
                             {award.desc}
                         </h4>
-                        <p className="max-w-md mt-4 sm:mt-6 text-sm sm:text-lg opacity-70 px-4">
+                        <p className="max-w-[80vw] sm:max-w-md mt-3 sm:mt-6 text-xs sm:text-lg opacity-70 px-4">
                             {award.sub}
                         </p>
                     </div>
