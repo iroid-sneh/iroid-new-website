@@ -65,7 +65,7 @@ const F1Poster = () => {
             <div className="absolute inset-0 z-20 flex justify-center items-start pt-10">
                 <div className="relative w-[50%] h-[90%] flex justify-center">
                     <img
-                        src="https://images.unsplash.com/photo-1530939986565-c0c17d114071?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8YmFja2dyb3VufGVufDB8MHwwfHx8MA%3D%3D"
+                        src="https://images.unsplash.com/photo-1773853431084-eceaebe061c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0OXx8fGVufDB8fHx8fA%3D%3D"
                         className="h-full object-contain z-20 brightness-110"
                         alt="Main Character"
                     />
