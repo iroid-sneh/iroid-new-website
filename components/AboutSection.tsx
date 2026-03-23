@@ -3,7 +3,7 @@ import RevealOnScroll from "./RevealOnScroll";
 
 export default function AboutSection() {
     return (
-        <section className="relative w-full min-h-screen bg-[#00024c] overflow-hidden flex flex-col justify-center px-6 md:px-20 py-24">
+        <section className="relative w-full min-h-screen bg-black overflow-hidden flex flex-col justify-center px-6 md:px-20 py-24">
             {/* 1. THE DECORATIVE ARC/SPHERE (Inspired by Lusion's blue circle) */}
             {/* This adds that "3D Depth" look over your topographic background */}
             <div className="absolute top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full border-[1px] border-[#c4e7ff]/10 pointer-events-none" />

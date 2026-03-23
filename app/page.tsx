@@ -8,16 +8,23 @@ import LandoExperience from "@/components/lando/LandoExperience";
 import LandoBackground from "@/components/lando/LandoBackground";
 import Footer from "@/components/Footer";
 import AboutSection from "@/components/AboutSection";
+import SelectedWorksTitle from "@/components/SelectedWorksTitle";
+import ProjectsCarousel from "@/components/ProjectsCarousel";
+import F1PosterFull from "@/components/F1PosterFull";
 
 export default function Home() {
     return (
         <main className="bg-black">
             {/* <LandoBackground />
             <LandoExperience /> */}
+            <F1PosterFull />
             <Hero />
-            <AboutSection />
             <TextReveal />
-            <AwardsList />
+            {/* <AboutSection /> */}
+            <ProjectsCarousel>
+                <SelectedWorksTitle />
+            </ProjectsCarousel>
+            {/* <AwardsList /> */}
             <AwardsVideoScroll />
             <ClientMapSection />
 

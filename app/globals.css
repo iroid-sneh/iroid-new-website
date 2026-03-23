@@ -169,6 +169,9 @@ body {
     --font-pressio-test43: "PressioTest43";
     --font-right-grotesk-medium: "RightGroteskMedium";
     --font-right-grotesk-compact-black: "RightGroteskCompactBlack";
+    --font-national-extrabold: "NationalExtraBold";
+    --font-national-condensed-black: "NationalCondensedBlack";
+    --font-national-condensed-extrabold: "NationalCondensedExtraBold";
 }
 
 @font-face {
@@ -184,17 +187,31 @@ body {
 
 @font-face {
     font-family: "RightGroteskMedium";
-    src: url(
-            "/fonts/right-grotesk-free-for-personal-use/Right%20Grotesk%20-%20Free%20for%20Personal%20Use/RightGrotesk-Medium.otf"
-        )
+    src: url("/fonts/right-grotesk-free-for-personal-use/Right%20Grotesk%20-%20Free%20for%20Personal%20Use/RightGrotesk-Medium.otf")
         format("opentype");
 }
 
 @font-face {
     font-family: "RightGroteskCompactBlack";
-    src: url(
-            "/fonts/right-grotesk-free-for-personal-use/Right%20Grotesk%20-%20Free%20for%20Personal%20Use/RightGrotesk-CompactBlack.otf"
-        )
+    src: url("/fonts/right-grotesk-free-for-personal-use/Right%20Grotesk%20-%20Free%20for%20Personal%20Use/RightGrotesk-CompactBlack.otf")
+        format("opentype");
+}
+
+@font-face {
+    font-family: "NationalExtraBold";
+    src: url("/fonts/national-font-family/TestNational2-Extrabold-BF663c3f48db15e.otf")
+        format("opentype");
+}
+
+@font-face {
+    font-family: "NationalCondensedBlack";
+    src: url("/fonts/national-font-family/TestNational2Condensed-Black-BF663c3f4773a2d.otf")
+        format("opentype");
+}
+
+@font-face {
+    font-family: "NationalCondensedExtraBold";
+    src: url("/fonts/national-font-family/TestNational2Condensed-Extrabold-BF663c3f47639d7.otf")
         format("opentype");
 }
 

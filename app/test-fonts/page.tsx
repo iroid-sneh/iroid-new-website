@@ -54,6 +54,21 @@ export default function FontTest() {
             class: "font-right-grotesk-compact-black",
             type: "Impact/Headline",
         },
+        {
+            name: "National ExtraBold",
+            class: "font-national-extrabold",
+            type: "Editorial/Display",
+        },
+        {
+            name: "National Condensed Black",
+            class: "font-national-condensed-black",
+            type: "Condensed/Impact",
+        },
+        {
+            name: "National Condensed ExtraBold",
+            class: "font-national-condensed-extrabold",
+            type: "Condensed/Headline",
+        },
     ];
 
     return (

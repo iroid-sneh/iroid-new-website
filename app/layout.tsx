@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navigation from "@/components/Navigation"; // 1. Import it
-import PixelTransition from "@/components/PixelTransition";
+import ConsoleBrandLog from "@/components/ConsoleBrandLog";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +19,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={inter.className}>
+                <ConsoleBrandLog />
                 {/* <PixelTransition /> */}
                 <SmoothScroll>
                     <Navigation /> {/* 2. Add it here! */}

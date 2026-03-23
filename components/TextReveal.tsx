@@ -141,7 +141,7 @@ export default function TextReveal() {
             <div className="w-full flex justify-center">
                 <h2
                     ref={textRef}
-                    className="text-[#F5F5F7] text-center text-4xl md:text-6xl lg:text-[7.5rem] leading-[0.9] font-black uppercase tracking-tighter"
+                    className="text-[#F5F5F7] text-center text-4xl md:text-6xl lg:text-[7.5rem] leading-[0.9] font-national-extrabold uppercase tracking-tighter"
                 >
                     Redefining limits,
                     <br />
