@@ -17,10 +17,10 @@ export default function Home() {
         <main className="bg-black">
             {/* <LandoBackground />
             <LandoExperience /> */}
-            <F1PosterFull />
             <Hero />
+            <AboutSection />
             <TextReveal />
-            {/* <AboutSection /> */}
+            {/* <F1PosterFull /> */}
             <ProjectsCarousel>
                 <SelectedWorksTitle />
             </ProjectsCarousel>
