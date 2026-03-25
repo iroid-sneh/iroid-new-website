@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <section className="relative z-30 w-full h-screen bg-[#00024c] overflow-hidden flex flex-col items-center justify-center p-6 md:p-12 mesh-visible">
+        <section className="relative z-30 w-full h-screen bg-[#00024c] overflow-hidden flex flex-col items-center justify-center p-6 md:p-12">
             {/* 2. MAIN CONTENT AREA */}
             <div className="relative z-10 w-full max-w-[1400px] flex flex-col items-start justify-center">
                 {/* MAIN HEADLINE */}

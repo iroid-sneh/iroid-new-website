@@ -155,7 +155,7 @@ export default function MeshLinesBackground() {
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 z-[9999] pointer-events-none mix-blend-screen"
+            className="fixed inset-0 z-[80] pointer-events-none mix-blend-difference"
         />
     );
 }

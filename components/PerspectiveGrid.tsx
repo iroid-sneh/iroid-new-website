@@ -99,7 +99,7 @@ export default function PerspectiveGrid() {
     return (
         <section
             ref={contentRef}
-            className="relative z-40 overflow-hidden bg-black isolate"
+            className="relative z-[81] overflow-hidden bg-black isolate"
             style={{
                 paddingTop: isMobileView ? "30vh" : "60vh",
                 paddingBottom: isMobileView ? "30vh" : "60vh",
