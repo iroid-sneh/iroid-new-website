@@ -11,9 +11,10 @@ export default function Hero() {
                     initial={{ y: 100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-national-extrabold text-[#F5F5F7] text-[10vw] md:text-[8vw] leading-[0.9] tracking-[-0.04em] uppercase antialiased-text text-left"
+                    className="font-national-extrabold text-[#F5F5F7] text-[10vw] md:text-[8vw] leading-[0.9] tracking-tighter uppercase antialiased-text text-left"
                 >
-                    Crafted <br />
+                    Crafting
+                    <br />
                     <span className="text-transparent text-white">
                         Beyond the Surface
                     </span>
@@ -33,13 +34,12 @@ export default function Hero() {
                             human purpose.
                         </p>
 
-                        {/* THE CTA - Cleaned up to be more "Black Edition" minimal */}
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            className="mt-6 px-6 py-2 bg-[#F5F5F7] text-[#00024c] rounded-full text-[10px] uppercase tracking-[0.2em] font-bold transition-all hover:bg-white"
-                        >
-                            View Artifacts
-                        </motion.button>
+                        {/* THE CTA */}
+                        <button className="button-hyperion mt-6 text-[10px] uppercase tracking-[0.2em] font-bold px-6 py-2">
+                            <span className="button-hyperion__label">
+                                <span className="button-hyperion__text">View Artifacts</span>
+                            </span>
+                        </button>
                     </motion.div>
                 </div>
             </div>

@@ -69,6 +69,11 @@ export default function FontTest() {
             class: "font-national-condensed-extrabold",
             type: "Condensed/Headline",
         },
+        {
+            name: "Universo Black",
+            class: "font-universo-black",
+            type: "Display/Headline",
+        },
     ];
 
     return (

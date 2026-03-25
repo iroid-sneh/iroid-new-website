@@ -11,19 +11,21 @@ import AboutSection from "@/components/AboutSection";
 import SelectedWorksTitle from "@/components/SelectedWorksTitle";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
 import F1PosterFull from "@/components/F1PosterFull";
+import HorizontalShowcase from "@/components/HorizontalShowcase";
 
 export default function Home() {
     return (
         <main className="bg-black">
-            {/* <LandoBackground />
-            <LandoExperience /> */}
+            {/* <LandoBackground /> */}
+            {/* <LandoExperience /> */}
             <Hero />
             <AboutSection />
             <TextReveal />
+            {/* <HorizontalShowcase /> */}
             {/* <F1PosterFull /> */}
-            <ProjectsCarousel>
+            {/* <ProjectsCarousel>
                 <SelectedWorksTitle />
-            </ProjectsCarousel>
+            </ProjectsCarousel> */}
             {/* <AwardsList /> */}
             <AwardsVideoScroll />
             <ClientMapSection />

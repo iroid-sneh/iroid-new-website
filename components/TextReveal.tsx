@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function TextReveal() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -127,16 +130,26 @@ export default function TextReveal() {
 
         observer.observe(containerRef.current);
 
+        // Pin this section so the next one (HorizontalShowcase) slides over it
+        ScrollTrigger.create({
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            pin: true,
+            pinSpacing: false, // No extra space — next section overlaps directly
+        });
+
         return () => {
             observer.disconnect();
             split.revert();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
 
     return (
         <section
             ref={containerRef}
-            className="relative w-full min-h-screen bg-[#00024c] flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
+            className="relative w-full h-screen bg-[#00024c] flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
         >
             <div className="w-full flex justify-center">
                 <h2
