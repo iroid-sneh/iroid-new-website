@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <section className="relative z-30 w-full h-screen bg-[#00024c] overflow-hidden flex flex-col items-center justify-center p-6 md:p-12">
+        <section className="relative z-30 w-full h-screen bg-[#00024c] overflow-hidden flex flex-col items-center justify-center p-6 md:p-12 mesh-visible">
             {/* 2. MAIN CONTENT AREA */}
             <div className="relative z-10 w-full max-w-[1400px] flex flex-col items-start justify-center">
                 {/* MAIN HEADLINE */}
@@ -37,7 +37,9 @@ export default function Hero() {
                         {/* THE CTA */}
                         <button className="button-hyperion mt-6 text-[10px] uppercase tracking-[0.2em] font-bold px-6 py-2">
                             <span className="button-hyperion__label">
-                                <span className="button-hyperion__text">View Artifacts</span>
+                                <span className="button-hyperion__text">
+                                    View Artifacts
+                                </span>
                             </span>
                         </button>
                     </motion.div>

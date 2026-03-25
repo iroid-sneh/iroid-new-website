@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navigation from "@/components/Navigation"; // 1. Import it
 import ConsoleBrandLog from "@/components/ConsoleBrandLog";
+import MeshLinesBackground from "@/components/MeshLinesBackground";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <ConsoleBrandLog />
+                <MeshLinesBackground />
                 {/* <PixelTransition /> */}
                 <SmoothScroll>
                     <Navigation /> {/* 2. Add it here! */}

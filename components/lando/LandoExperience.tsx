@@ -91,7 +91,7 @@ export default function LandoExperience() {
                         backfaceVisibility: "hidden",
                     }}
                 >
-                    <section className="relative w-full h-full flex items-center justify-center px-10">
+                    <section className="relative w-full h-full flex items-center justify-center px-10 mesh-visible">
                         <h1 className="font-druk text-[12vw] leading-none uppercase text-white text-center">
                             Quality <br /> Matters
                         </h1>
