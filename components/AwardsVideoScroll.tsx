@@ -373,13 +373,13 @@ export default function AwardsVideoScroll() {
                 ref={videoLayerRef}
                 className="absolute z-[11] rounded-xl overflow-hidden pointer-events-none"
                 style={{
-                    opacity: 0.01, // 0.01 prevents mobile from pausing video to save energy
+                    opacity: 0.01,
                     width: isMobile ? "40vw" : "300px",
                     height: isMobile ? "50vw" : "450px",
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    transition: "opacity 0.3s ease",
+                    willChange: "width, height, border-radius, opacity",
                 }}
             >
                 <video
@@ -405,6 +405,7 @@ export default function AwardsVideoScroll() {
                     className="relative w-[40vw] h-[50vw] sm:w-[300px] sm:h-[450px] bg-black rounded-xl overflow-hidden shadow-2xl"
                     style={{
                         transformStyle: "preserve-3d",
+                        willChange: "transform, width, height, border-radius",
                     }}
                 >
                     <div className="absolute inset-0 w-full h-full bg-[#222] backface-hidden flex items-center justify-center">
