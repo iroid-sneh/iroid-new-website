@@ -96,6 +96,8 @@ export default function MeshLinesBackground() {
             alpha: true,
         });
 
+        renderer.autoClear = true;
+        renderer.setClearColor(0x000000, 0);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
