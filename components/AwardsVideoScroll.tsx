@@ -348,7 +348,7 @@ export default function AwardsVideoScroll() {
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-screen bg-white overflow-hidden"
+            className="relative z-10 w-full h-screen bg-white overflow-hidden"
         >
             <div
                 ref={introTextRef}
@@ -397,7 +397,7 @@ export default function AwardsVideoScroll() {
             </div>
 
             <div
-                className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+                className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none isolate"
                 style={{ perspective: "1000px" }}
             >
                 <div

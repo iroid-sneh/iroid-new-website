@@ -15,7 +15,7 @@ import HorizontalShowcase from "@/components/HorizontalShowcase";
 
 export default function Home() {
     return (
-        <main className="bg-black">
+        <main className="bg-transparent">
             {/* <LandoBackground />
             <LandoExperience /> */}
             <Hero />

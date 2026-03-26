@@ -301,9 +301,3 @@ video {
     }
 }
 
-/* Add this class to any section to hide the mesh lines background from it */
-.no-mesh {
-    position: relative;
-    z-index: 81;
-}
-
