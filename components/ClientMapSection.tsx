@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import Image from "next/image";
 
 // We slightly compressed the start times (0.02 increments) so the final pin
 // arrives earlier, giving us a massive amount of scroll space for the transition.
@@ -54,6 +55,17 @@ export default function MapSection() {
                 {/* 1. Background Grid */}
                 <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
                     <GridBackground />
+                </div>
+
+                {/* 2. World Map */}
+                <div className="absolute inset-0 z-[5] flex items-center justify-center pointer-events-none">
+                    <Image
+                        src="/worldmap.png"
+                        alt="World Map"
+                        width={1400}
+                        height={800}
+                        className="w-[90vw] max-w-[1400px] h-auto opacity-90 object-contain"
+                    />
                 </div>
 
                 {/* 2. Scrolling Text Lines */}
