@@ -4,7 +4,7 @@ import TextReveal from "./TextReveal2";
 
 export default function AboutSection() {
     return (
-        <section className="relative w-full min-h-[110vh] bg-[#EEEDE4] overflow-hidden flex flex-col justify-center px-6 md:px-20 py-24">
+        <section className="relative w-full min-h-screen bg-[#EEEDE4] overflow-hidden flex flex-col justify-center px-6 md:px-20 py-24">
             {/* Decorative Arc remains as is */}
             <div className="absolute top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full border-[1px] border-[#c4e7ff]/10 pointer-events-none" />
 
