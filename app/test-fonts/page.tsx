@@ -77,7 +77,7 @@ export default function FontTest() {
     ];
 
     return (
-        <div className="p-10 bg-[#000014] min-h-screen text-white">
+        <div className="p-10 bg-[#0D3479] min-h-screen text-white">
             <h1 className="text-blue-500 font-mono text-sm mb-20 border-b border-blue-500/20 pb-4">
                 iRoid Solutions / Typography Playground v1.0
             </h1>
@@ -92,7 +92,7 @@ export default function FontTest() {
                             <span className="bg-blue-600 text-[10px] px-2 py-1 rounded font-mono">
                                 {font.type}
                             </span>
-                            <p className="text-white/40 font-mono text-xs uppercase tracking-widest">
+                            <p className="text-[#EEEDE4]/40 font-mono text-xs uppercase tracking-widest">
                                 {font.name}
                             </p>
                         </div>

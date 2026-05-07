@@ -24,7 +24,7 @@ export default function RevealOnScroll({
     stagger = 0.15,
     duration = 0.7,
     ghostColor = "#25A4FF",
-    primaryColor = "#c4e7ff",
+    primaryColor = "#0D3479",
 }: RevealOnScrollProps) {
     const containerRef = useRef<HTMLElement | null>(null);
 

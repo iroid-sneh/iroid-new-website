@@ -348,22 +348,22 @@ export default function AwardsVideoScroll() {
     return (
         <div
             ref={containerRef}
-            className="relative z-10 w-full h-screen bg-white overflow-hidden"
+            className="relative z-10 w-full h-screen bg-[#EEEDE4] overflow-hidden"
         >
             <div
                 ref={introTextRef}
                 className="absolute inset-0 flex flex-col items-center justify-center z-0 w-full overflow-hidden"
             >
-                <span className="text-[10px] sm:text-[14px] md:text-[18px] font-bold text-black tracking-[0.3em] sm:tracking-[0.6em] mb-2 sm:mb-4 uppercase">
+                <span className="text-[10px] sm:text-[14px] md:text-[18px] font-bold text-[#0D3479] tracking-[0.3em] sm:tracking-[0.6em] mb-2 sm:mb-4 uppercase">
                     5 Reasons
                 </span>
                 <div className="flex flex-col sm:flex-row items-center justify-center w-full px-4 sm:px-10">
-                    <h2 className="text-[14vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
+                    <h2 className="text-[14vw] sm:text-[12vw] font-[#0D3479] font-druk leading-none text-[#0D3479] whitespace-nowrap uppercase">
                         To Be
                     </h2>
                     <div className="hidden sm:block w-[25vw] md:w-[20vw] flex-shrink-0"></div>
                     <div className="block sm:hidden h-[55vw]"></div>
-                    <h2 className="text-[14vw] sm:text-[12vw] font-black font-druk leading-none text-black whitespace-nowrap uppercase">
+                    <h2 className="text-[14vw] sm:text-[12vw] font-[#0D3479] font-druk leading-none text-[#0D3479] whitespace-nowrap uppercase">
                         iRoid
                     </h2>
                 </div>

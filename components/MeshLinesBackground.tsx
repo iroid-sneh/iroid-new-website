@@ -75,9 +75,9 @@ void main() {
     float thickness = fwidth(n * density) * 1.1;
     float line = smoothstep(thickness, 0.0, abs(g - 0.5));
 
-    vec3 lineColor = vec3(0.4, 0.7, 1);
+    vec3 lineColor = vec3(0.051, 0.204, 0.475); // #0D3479
 
-    gl_FragColor = vec4(lineColor, line * 0.6);
+    gl_FragColor = vec4(lineColor, line * 0.9);
 }
 `;
 
@@ -157,7 +157,7 @@ export default function MeshLinesBackground() {
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 z-[-1] pointer-events-none mix-blend-difference"
+            className="fixed inset-0 z-[0] pointer-events-none"
         />
     );
 }
