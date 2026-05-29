@@ -6,9 +6,22 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// This component renders the design layout.
-// We will use this twice: one for the "Current" images and one for the "Next" images.
-const PosterLayout = ({ images, title, clipPath = "none" }) => {
+type PosterImages = {
+    mainBg: string;
+    womanLeft: string;
+    javierTop: string;
+    walkingMan: string;
+    damsonIdris: string;
+    mainCharacter: string;
+};
+
+type PosterLayoutProps = {
+    images: PosterImages;
+    title: string;
+    clipPath?: string;
+};
+
+const PosterLayout = ({ images, title, clipPath = "none" }: PosterLayoutProps) => {
     const skewClass = "-skew-x-[45deg]";
     const innerStyle = {
         top: "-25%",
@@ -118,8 +131,8 @@ const PosterLayout = ({ images, title, clipPath = "none" }) => {
 };
 
 const F1PosterFull = () => {
-    const containerRef = useRef();
-    const revealLineRef = useRef();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const revealLineRef = useRef<HTMLDivElement>(null);
 
     const data = [
         {

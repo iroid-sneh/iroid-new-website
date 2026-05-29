@@ -4,11 +4,11 @@ import TextReveal2 from "./TextReveal2";
 
 export default function Hero() {
     return (
-        <section className="relative w-full h-screen bg-[#EEEDE4] overflow-hidden flex flex-col items-center justify-center p-6 md:p-12">
+        <section className="relative w-full h-screen bg-[#00024c]/80 overflow-hidden flex flex-col items-center justify-center p-6 md:p-12">
             {/* 2. MAIN CONTENT AREA */}
             <div className="relative z-10 w-full max-w-[1400px] flex flex-col items-start justify-center">
                 {/* MAIN HEADLINE */}
-                <motion.h1 className="font-national-extrabold text-[#0D3479] text-[10vw] md:text-[8vw] leading-[0.9] tracking-tighter uppercase antialiased-text text-left">
+                <motion.h1 className="font-national-extrabold text-[#F5F5F7] text-[10vw] md:text-[8vw] leading-[0.9] tracking-tighter uppercase antialiased-text text-left">
                     <TextReveal2 text="Crafting" />
                     <TextReveal2 text="Beyond the Surface" />
                 </motion.h1>
@@ -21,7 +21,7 @@ export default function Hero() {
                         transition={{ duration: 1, delay: 0.8 }}
                         className="max-w-[380px] text-left" // Restricted width forces it into 2-3 lines
                     >
-                        <p className="text-[#0D3479] text-[15px] leading-[1.6] font-right-grotesk-medium tracking-tight uppercase">
+                        <p className="text-[#F5F5F7] text-[15px] leading-[1.6] font-right-grotesk-medium tracking-tight uppercase">
                             Invisible engineering, visible impact. We architect
                             digital products where uncompromising code meets
                             human purpose.

@@ -3,6 +3,12 @@
 
 import { ReactLenis } from "@studio-freight/react-lenis";
 
+const LenisWrapper = ReactLenis as unknown as React.FC<{
+    root?: boolean;
+    options?: Record<string, unknown>;
+    children?: React.ReactNode;
+}>;
+
 export default function SmoothScroll({
     children,
 }: {
@@ -10,11 +16,11 @@ export default function SmoothScroll({
 }) {
     return (
         // 'lerp' controls the smoothness (lower = smoother/slower)
-        <ReactLenis
+        <LenisWrapper
             root
             options={{ lerp: 0.05, duration: 1.2, smoothWheel: true }}
         >
             {children}
-        </ReactLenis>
+        </LenisWrapper>
     );
 }

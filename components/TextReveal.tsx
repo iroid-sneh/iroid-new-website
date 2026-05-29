@@ -39,7 +39,7 @@ export default function TextReveal() {
                 left: "0",
                 width: "100%",
                 height: "104%",
-                backgroundColor: "#8B9DBC",
+                backgroundColor: "#25A4FF",
                 // backgroundColor: "#2D5BFF",
                 // backgroundColor: "#2D62E8",
                 // backgroundColor: "#9CB8FF",
@@ -59,7 +59,7 @@ export default function TextReveal() {
             Object.assign(primary.style, {
                 position: "absolute",
                 inset: "0",
-                backgroundColor: "#EEEDE4",
+                backgroundColor: "#c4e7ff",
                 zIndex: "11",
                 pointerEvents: "none",
                 transform: "scaleX(0)",
@@ -149,21 +149,21 @@ export default function TextReveal() {
     return (
         <section
             ref={containerRef}
-            className="relative w-full h-screen bg-[#0D3479] flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
+            className="relative w-full h-screen bg-[#00024c]/80 flex flex-col items-center justify-center py-32 px-4 md:px-12 lg:px-24"
         >
             <div className="w-full flex justify-center">
                 <h2
                     ref={textRef}
-                    className="text-[#EEEDE4] text-center text-4xl md:text-6xl lg:text-[7.5rem] leading-[0.9] font-national-extrabold uppercase tracking-tighter"
+                    className="text-[#F5F5F7] text-center text-4xl md:text-6xl lg:text-[7.5rem] leading-[0.9] font-national-extrabold uppercase tracking-tighter"
                 >
                     Redefining limits,
                     <br />
-                    fighting for <span className="text-[#8B9DBC]">wins</span>,
+                    fighting for <span className="text-[#25A4FF]">wins</span>,
                     <br />
                     bringing it all in
                     <br />
                     all ways. Defining a<br />
-                    <span className="text-[#8B9DBC]">legacy</span> in Web
+                    <span className="text-[#25A4FF]">legacy</span> in Web
                     Development
                     <br />
                     on and off the

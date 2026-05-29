@@ -7,13 +7,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function LandoExperience() {
     // Existing Refs
-    const shrinkContainerRef = useRef(null);
-    const blackBoxRef = useRef(null);
-    const horizontalSectionRef = useRef(null);
-    const horizontalWrapperRef = useRef(null);
+    const shrinkContainerRef = useRef<HTMLDivElement>(null);
+    const blackBoxRef = useRef<HTMLDivElement>(null);
+    const horizontalSectionRef = useRef<HTMLElement>(null);
+    const horizontalWrapperRef = useRef<HTMLDivElement>(null);
 
     // NEW: Ref for the sticky yellow section
-    const stickyYellowRef = useRef(null);
+    const stickyYellowRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -32,7 +32,7 @@ export default function LandoExperience() {
             });
 
             // 2. THE HORIZONTAL SCROLL LOGIC
-            const totalWidth = horizontalWrapperRef.current?.scrollWidth;
+            const totalWidth = horizontalWrapperRef.current?.scrollWidth ?? 0;
             const amountToScroll = totalWidth - window.innerWidth;
 
             gsap.to(horizontalWrapperRef.current, {

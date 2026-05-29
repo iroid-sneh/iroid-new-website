@@ -24,7 +24,7 @@ export default function RevealOnScroll({
     stagger = 0.15,
     duration = 0.7,
     ghostColor = "#25A4FF",
-    primaryColor = "#0D3479",
+    primaryColor = "#c4e7ff",
 }: RevealOnScrollProps) {
     const containerRef = useRef<HTMLElement | null>(null);
 
@@ -136,9 +136,10 @@ export default function RevealOnScroll({
         };
     }, [duration, ghostColor, primaryColor, stagger, threshold]);
 
+    const TagComponent = Tag as any;
     return (
-        <Tag ref={containerRef as never} className={className}>
+        <TagComponent ref={containerRef} className={className}>
             {children}
-        </Tag>
+        </TagComponent>
     );
 }
